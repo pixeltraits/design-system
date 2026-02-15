@@ -1,0 +1,33 @@
+.ds-sidenav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.ds-sidenav-header__title {
+  font: var(--mat-sys-title-medium);
+  color: var(--mat-sys-on-surface);
+}
+
+.ds-sidenav-header__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--mat-sys-on-surface-variant);
+  padding: 8px;
+  border-radius: var(--mat-sys-corner-full);
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+  }
+}
+
+.ds-sidenav-body {
+  padding: 0 16px 16px;
+  overflow-y: auto;
+}

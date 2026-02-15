@@ -1,0 +1,85 @@
+.ds-responsive-table {
+  border-spacing: 0;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+
+  tbody tr:nth-child(even) {
+    background-color: var(--mat-sys-surface);
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: var(--mat-sys-surface-container);
+  }
+}
+
+.ds-responsive-table-th {
+  padding: 8px 16px;
+  user-select: none;
+  background-color: var(--mat-sys-surface);
+  border-collapse: collapse;
+  position: sticky;
+  z-index: 3;
+  height: auto;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  border-left: 1px solid var(--mat-sys-outline-variant);
+  top: 0;
+  font-weight: bold;
+
+  &:first-child {
+    border-left: none;
+  }
+}
+
+.ds-responsive-table-td {
+  padding: 8px 16px;
+  user-select: none;
+  height: auto;
+  z-index: 1;
+  background-color: inherit;
+  border-collapse: collapse;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  border-left: 1px solid var(--mat-sys-outline-variant);
+
+  &:first-child {
+    border-left: none;
+  }
+}
+
+.ds-responsive-table-actions {
+  user-select: all;
+  cursor: default;
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  box-shadow: -3px 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 8px 16px;
+  background-color: var(--mat-sys-surface);
+  border-collapse: collapse;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+
+  &.ds-responsive-table-actions--header {
+    top: 0;
+    box-shadow: -3px -2px 5px rgba(0, 0, 0, 0.2);
+    border-top: 0;
+    z-index: 4;
+  }
+}
+
+.ds-responsive-table-container {
+  border-radius: 8px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  min-width: 0;
+  min-height: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  cursor: grab;
+
+  &.ds-responsive-table-container--panning {
+    cursor: grabbing;
+  }
+}

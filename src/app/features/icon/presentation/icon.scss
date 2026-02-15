@@ -1,0 +1,17 @@
+ds-icon {
+  &.ds-icon--sm {
+    font-size: var(--mat-sys-label-small-size);
+  }
+
+  &.ds-icon--md {
+    font-size: var(--mat-sys-body-large-size);
+  }
+
+  &.ds-icon--lg {
+    font-size: var(--mat-sys-headline-small-size);
+  }
+
+  &.ds-icon--xl {
+    font-size: var(--mat-sys-display-small-size);
+  }
+}

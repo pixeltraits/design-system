@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ng test:*)",
+      "Bash(ng lint:*)",
+      "Bash(npx ng lint:*)",
+      "Bash(npx ng test)",
+      "Bash(npx ng test:*)"
+    ]
+  }
+}

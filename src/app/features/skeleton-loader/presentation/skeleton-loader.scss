@@ -1,0 +1,55 @@
+.ds-skeleton {
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: var(--mat-sys-surface-container-highest);
+    z-index: 1;
+  }
+
+  &--wave::after {
+    background: linear-gradient(
+      90deg,
+      var(--mat-sys-surface-container-highest) 25%,
+      var(--mat-sys-surface-bright) 50%,
+      var(--mat-sys-surface-container-highest) 75%
+    );
+    background-size: 200% 100%;
+    animation: ds-skeleton-wave 1.5s ease-in-out infinite;
+  }
+
+  &--pulse::after {
+    animation: ds-skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &--wave::after,
+    &--pulse::after {
+      animation: none;
+    }
+  }
+}
+
+@keyframes ds-skeleton-wave {
+  from {
+    background-position-x: 200%;
+  }
+  to {
+    background-position-x: -200%;
+  }
+}
+
+@keyframes ds-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
