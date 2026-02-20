@@ -6,8 +6,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   host: {
     class: 'ds-dialog',
   },
-  template: `<ng-content select="[dsDialogTitle]" />
-<ng-content select="[dsDialogContent]" />
-<ng-content select="[dsDialogActions]" />`,
+  template: `
+    <ng-content select="[dsDialogTitle]" />
+    <ng-content select="[dsDialogContent]" />
+    <ng-content select="[dsDialogActions]" />
+  `,
 })
 export class DsDialogComponent {}

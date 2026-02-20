@@ -1,0 +1,18 @@
+.ds-select-panel {
+  border-radius: var(--mat-sys-corner-extra-small) !important;
+
+  .mat-mdc-option {
+    font: var(--mat-sys-body-large);
+    color: var(--mat-sys-on-surface);
+
+    &.mdc-list-item--selected:not(.mdc-list-item--disabled) {
+      .mdc-list-item__primary-text {
+        color: var(--mat-sys-primary);
+      }
+    }
+
+    &:hover:not(.mdc-list-item--disabled) {
+      background-color: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
+    }
+  }
+}

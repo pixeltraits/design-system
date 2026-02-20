@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DsIcon } from '@features/icon/presentation/icon';
-import { DsButton } from '@features/button/presentation/button';
-import { DsIconName } from '@features/icon/presentation/icon-registry';
+import { DsIcon } from '../../icon/presentation/icon';
+import { DsButton } from '../../button/presentation/button';
+import { DsIconName } from '../../icon/presentation/icon-registry';
 
 @Component({
   selector: 'ds-page-not-found',

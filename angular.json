@@ -5,7 +5,8 @@
     "packageManager": "npm",
     "schematicCollections": [
       "angular-eslint"
-    ]
+    ],
+    "analytics": "b6c0c183-2415-40d3-bb03-6ed656274dde"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -112,6 +113,26 @@
               "."
             ],
             "outputDir": "storybook-static"
+          }
+        }
+      }
+    },
+    "@pixeltraits/design-system": {
+      "projectType": "library",
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "ds",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "ng-package.json",
+            "tsConfig": "tsconfig.lib.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.json"
+            }
           }
         }
       }

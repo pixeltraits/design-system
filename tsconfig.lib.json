@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/lib",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": []
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "partial"
+  },
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/**/*.stories.ts",
+    "src/main.ts",
+    "src/app/app.ts",
+    "src/app/app.html",
+    "src/app/app.config.ts",
+    "src/app/app.routes.ts",
+    "src/app/features/page-not-found/**"
+  ],
+  "include": ["src/**/*.ts"]
+}

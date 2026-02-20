@@ -1,0 +1,27 @@
+.ds-form-field {
+  width: 100%;
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: var(--mat-sys-surface-container-highest);
+  }
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--mat-sys-outline);
+    }
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    font: var(--mat-sys-body-small);
+  }
+
+  .mat-mdc-form-field-hint {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .mat-mdc-form-field-error {
+    color: var(--mat-sys-error);
+  }
+}

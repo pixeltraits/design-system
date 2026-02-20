@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, output } from '@angular/core';
-import { DsIcon } from '@features/icon/presentation/icon';
+import { DsIcon } from '../../icon/presentation/icon';
 
 @Component({
   selector: 'ds-sidenav-header',

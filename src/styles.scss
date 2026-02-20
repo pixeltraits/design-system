@@ -1,22 +1,9 @@
-@use '@angular/material' as mat;
-@use './app/features/button/presentation/button';
-@use './app/features/skeleton-loader/presentation/skeleton-loader';
-@use './app/features/icon/presentation/icon';
-@use './app/features/responsive-table/presentation/responsive-table';
-@use './app/features/dialog/presentation/dialog';
-@use './app/features/sidenav/presentation/sidenav';
+@use './styles/theme';
+@use './styles/components';
 
 html {
   height: 100%;
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include theme.theme();
 }
 
 body {
