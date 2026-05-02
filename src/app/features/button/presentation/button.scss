@@ -4,70 +4,57 @@
   justify-content: center;
   gap: 8px;
   box-sizing: border-box;
-  min-width: 64px;
-  height: 40px;
-  padding: 0 24px;
   border: none;
-  border-radius: var(--mat-sys-corner-full);
-  font-family: var(--mat-sys-label-large-font);
-  font-size: var(--mat-sys-label-large-size);
-  font-weight: var(--mat-sys-label-large-weight);
-  letter-spacing: var(--mat-sys-label-large-tracking);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-fs-body);
+  font-weight: var(--ds-fw-medium);
   text-decoration: none;
   cursor: pointer;
-  transition: box-shadow 200ms;
+  transition: opacity 0.2s, border-color 0.2s, color 0.2s;
 
   &:focus-visible {
-    outline: 2px solid var(--mat-sys-primary);
+    outline: 2px solid var(--ds-primary);
     outline-offset: 2px;
   }
 
   &:disabled {
     cursor: default;
     pointer-events: none;
+    opacity: 0.4;
   }
 }
 
 .ds-button--primary {
-  background-color: var(--mat-sys-primary);
-  color: var(--mat-sys-on-primary);
+  background: var(--ds-primary);
+  color: #fff;
+  padding: 9px 20px;
+  border-radius: 6px;
 
   &:hover {
-    box-shadow: var(--mat-sys-level1);
-  }
-
-  &:disabled {
-    background-color: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
-    color: color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent);
+    opacity: 0.85;
   }
 }
 
 .ds-button--secondary {
-  background-color: #fff;
-  color: var(--mat-sys-primary);
-  border: 1px solid var(--mat-sys-primary);
+  background: transparent;
+  color: var(--ds-text);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 12px 26px;
+  border-radius: 7px;
 
   &:hover {
-    background-color: color-mix(in srgb, var(--mat-sys-primary) 8%, #fff);
-  }
-
-  &:disabled {
-    background-color: transparent;
-    color: color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent);
-    border-color: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
+    border-color: var(--ds-primary-l);
+    color: var(--ds-primary-l);
   }
 }
 
 .ds-button--danger {
-  background-color: var(--mat-sys-error);
+  background: var(--mat-sys-error);
   color: var(--mat-sys-on-error);
+  padding: 9px 20px;
+  border-radius: 6px;
 
   &:hover {
-    box-shadow: var(--mat-sys-level1);
-  }
-
-  &:disabled {
-    background-color: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
-    color: color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent);
+    opacity: 0.85;
   }
 }

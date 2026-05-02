@@ -1,17 +1,17 @@
 ds-icon {
   &.ds-icon--sm {
-    font-size: var(--mat-sys-label-small-size);
+    font-size: var(--ds-fs-caption);
   }
 
   &.ds-icon--md {
-    font-size: var(--mat-sys-body-large-size);
+    font-size: var(--ds-fs-body-lg);
   }
 
   &.ds-icon--lg {
-    font-size: var(--mat-sys-headline-small-size);
+    font-size: var(--ds-fs-heading);
   }
 
   &.ds-icon--xl {
-    font-size: var(--mat-sys-display-small-size);
+    font-size: var(--ds-fs-display-sm);
   }
 }

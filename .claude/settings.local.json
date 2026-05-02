@@ -5,7 +5,13 @@
       "Bash(ng lint:*)",
       "Bash(npx ng lint:*)",
       "Bash(npx ng test)",
-      "Bash(npx ng test:*)"
+      "Bash(npx ng test:*)",
+      "Bash(mkdir -p /home/erwan/capitalisation/design-system/src/app/features/status-badge/presentation)",
+      "Bash(mkdir -p /home/erwan/capitalisation/design-system/src/app/features/badge/presentation)",
+      "Bash(mkdir -p /home/erwan/capitalisation/design-system/src/app/features/icon-badge/presentation)",
+      "Bash(mkdir -p /home/erwan/capitalisation/design-system/src/app/features/card/presentation)",
+      "Bash(mkdir -p /home/erwan/capitalisation/design-system/src/app/features/avatar/presentation)",
+      "Bash(npx ng *)"
     ]
   }
 }

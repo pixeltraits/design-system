@@ -1,18 +1,23 @@
 .ds-select-panel {
-  border-radius: var(--mat-sys-corner-extra-small) !important;
+  border-radius: 6px !important;
+  background-color: var(--ds-bg2) !important;
+  border: 0.5px solid var(--ds-border) !important;
 
   .mat-mdc-option {
-    font: var(--mat-sys-body-large);
-    color: var(--mat-sys-on-surface);
+    font-family: var(--ds-font-sans);
+    font-size: var(--ds-fs-body);
+    color: var(--ds-text-muted);
+    min-height: 40px;
 
     &.mdc-list-item--selected:not(.mdc-list-item--disabled) {
       .mdc-list-item__primary-text {
-        color: var(--mat-sys-primary);
+        color: var(--ds-primary-l);
       }
     }
 
     &:hover:not(.mdc-list-item--disabled) {
-      background-color: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
+      background-color: rgba(107, 122, 255, 0.08);
+      color: var(--ds-text);
     }
   }
 }

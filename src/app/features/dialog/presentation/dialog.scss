@@ -1,21 +1,27 @@
 .ds-dialog-panel {
   .mat-mdc-dialog-surface {
-    background-color: var(--mat-sys-surface);
-    color: var(--mat-sys-on-surface);
-    border-radius: var(--mat-sys-corner-extra-large);
+    background-color: var(--ds-bg2);
+    color: var(--ds-text);
+    border-radius: 10px;
+    border: 0.5px solid var(--ds-border);
   }
 }
 
 .ds-dialog-title {
-  font: var(--mat-sys-headline-small);
-  color: var(--mat-sys-on-surface);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-fs-title);
+  font-weight: var(--ds-fw-bold);
+  letter-spacing: -0.5px;
+  color: var(--ds-text);
   margin: 0;
   padding: 24px 24px 0;
 }
 
 .ds-dialog-content {
-  font: var(--mat-sys-body-medium);
-  color: var(--mat-sys-on-surface-variant);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-fs-body);
+  line-height: 1.75;
+  color: var(--ds-text-muted);
   padding: 16px 24px;
 }
 
@@ -24,4 +30,6 @@
   justify-content: flex-end;
   gap: 8px;
   padding: 0 24px 24px;
+  border-top: 0.5px solid var(--ds-border);
+  margin-top: 8px;
 }

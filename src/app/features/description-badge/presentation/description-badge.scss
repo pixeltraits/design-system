@@ -1,0 +1,23 @@
+ds-description-badge {
+  display: block;
+  margin-bottom: 20px;
+  padding-left: 14px;
+  border-left: 1.5px solid var(--ds-border2);
+}
+
+.company {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.role {
+  font-size: 11px;
+  color: var(--ds-primary-l);
+  margin: 3px 0;
+}
+
+.period {
+  font-size: 10px;
+  color: var(--ds-text-muted2);
+  font-family: var(--ds-font-mono);
+}

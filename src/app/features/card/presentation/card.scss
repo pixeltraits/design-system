@@ -1,0 +1,24 @@
+ds-card {
+  display: block;
+  background: var(--ds-bg2);
+  border: 0.5px solid var(--ds-border);
+  border-radius: 10px;
+  padding: 26px 22px;
+  transition: border-color 0.25s;
+
+  &:hover {
+    border-color: var(--ds-border2);
+  }
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+
+.card-description {
+  font-size: 12px;
+  color: var(--ds-text-muted2);
+  line-height: 1.7;
+}

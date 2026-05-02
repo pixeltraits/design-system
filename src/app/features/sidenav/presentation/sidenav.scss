@@ -1,13 +1,29 @@
+// ── Header ────────────────────────────────────────────────
 .ds-sidenav-header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
+  padding: 18px 16px;
+  border-bottom: 0.5px solid var(--ds-border);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ds-primary), transparent);
+    opacity: 0.6;
+  }
 }
 
 .ds-sidenav-header__title {
-  font: var(--mat-sys-title-medium);
-  color: var(--mat-sys-on-surface);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-fs-subheading);
+  font-weight: var(--ds-fw-medium);
+  color: var(--ds-text);
 }
 
 .ds-sidenav-header__close {
@@ -17,17 +33,81 @@
   border: none;
   background: none;
   cursor: pointer;
-  color: var(--mat-sys-on-surface-variant);
-  padding: 8px;
-  border-radius: var(--mat-sys-corner-full);
+  color: var(--ds-text-muted);
+  padding: 7px;
+  border-radius: 50%;
+  transition: color 0.2s, background 0.2s;
+
+  &:hover {
+    color: var(--ds-text);
+    background: rgba(255, 255, 255, 0.06);
+  }
 
   &:focus-visible {
-    outline: 2px solid var(--mat-sys-primary);
+    outline: 2px solid var(--ds-primary);
     outline-offset: 2px;
   }
 }
 
+// ── Body ──────────────────────────────────────────────────
 .ds-sidenav-body {
-  padding: 0 16px 16px;
+  padding: 8px 0;
   overflow-y: auto;
+  flex: 1;
+}
+
+// ── Nav section label ─────────────────────────────────────
+.ds-sidenav-nav-label {
+  display: block;
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-fs-label);
+  color: var(--ds-text-muted2);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 16px 16px 6px;
+}
+
+// ── Nav link ──────────────────────────────────────────────
+.ds-sidenav-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-fs-body);
+  color: var(--ds-text-muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--ds-text);
+    background: rgba(255, 255, 255, 0.04);
+    border-left-color: rgba(107, 122, 255, 0.4);
+  }
+
+  &.active,
+  &[aria-current='page'] {
+    color: var(--ds-primary-l);
+    border-left-color: var(--ds-primary);
+    background: rgba(107, 122, 255, 0.07);
+    font-weight: var(--ds-fw-medium);
+  }
+}
+
+// ── Divider ───────────────────────────────────────────────
+.ds-sidenav-divider {
+  height: 0.5px;
+  background: var(--ds-border);
+  margin: 10px 16px;
+}
+
+// ── Footer ────────────────────────────────────────────────
+.ds-sidenav-footer {
+  padding: 12px 16px;
+  border-top: 0.5px solid var(--ds-border);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-fs-body-sm);
+  color: var(--ds-text-muted2);
 }

@@ -3,11 +3,83 @@
 @mixin theme() {
   @include mat.theme((
     color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      theme-type: dark,
+      primary: mat.$violet-palette,
+      tertiary: mat.$orange-palette,
     ),
-    typography: Roboto,
+    typography: (
+      brand-family: 'Space Grotesk',
+      plain-family: 'Space Grotesk',
+      bold-weight: 700,
+      medium-weight: 500,
+      regular-weight: 400,
+    ),
     density: 0,
   ));
+
+  // Override Material system color tokens
+  --mat-sys-primary: #6b7aff;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-primary-container: rgba(107, 122, 255, 0.18);
+  --mat-sys-on-primary-container: #c4caff;
+  --mat-sys-tertiary: #f97316;
+  --mat-sys-on-tertiary: #ffffff;
+  --mat-sys-background: #08080f;
+  --mat-sys-on-background: #e8e6f0;
+  --mat-sys-surface: #08080f;
+  --mat-sys-on-surface: #e8e6f0;
+  --mat-sys-surface-variant: #13131f;
+  --mat-sys-on-surface-variant: #9896a8;
+  --mat-sys-surface-container-lowest: #08080f;
+  --mat-sys-surface-container-low: #0e0e1a;
+  --mat-sys-surface-container: #13131f;
+  --mat-sys-surface-container-high: #1a1a28;
+  --mat-sys-surface-container-highest: #1f1f2e;
+  --mat-sys-outline: rgba(91, 106, 255, 0.15);
+  --mat-sys-outline-variant: rgba(91, 106, 255, 0.3);
+
+  // ── Design tokens ────────────────────────────────────────
+
+  // Backgrounds
+  --ds-bg: #08080f;
+  --ds-bg2: #0e0e1a;
+  --ds-bg3: #13131f;
+
+  // Borders
+  --ds-border: rgba(91, 106, 255, 0.15);
+  --ds-border2: rgba(91, 106, 255, 0.3);
+
+  // Brand colors
+  --ds-primary: #6b7aff;
+  --ds-primary-l: #8b9aff;
+  --ds-accent: #f97316;
+  --ds-accent-dim: rgba(249, 115, 22, 0.12);
+
+  // Text
+  --ds-text: #e8e6f0;
+  --ds-text-muted: #9896a8;
+  --ds-text-muted2: #6b6a7a;
+
+  // Fonts
+  --ds-font-sans: 'Space Grotesk', sans-serif;
+  --ds-font-mono: 'Space Mono', monospace;
+
+  // Type scale — sizes
+  --ds-fs-display: 56px;
+  --ds-fs-display-sm: 48px;
+  --ds-fs-title: 26px;
+  --ds-fs-heading: 20px;
+  --ds-fs-subheading: 17px;
+  --ds-fs-body-lg: 15px;
+  --ds-fs-body: 13px;
+  --ds-fs-body-sm: 12px;
+  --ds-fs-caption: 11px;
+  --ds-fs-label: 10px;
+
+  // Type scale — weights
+  --ds-fw-bold: 700;
+  --ds-fw-semibold: 600;
+  --ds-fw-medium: 500;
+  --ds-fw-regular: 400;
+  --ds-fw-light: 300;
 }

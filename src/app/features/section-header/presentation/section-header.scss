@@ -1,0 +1,18 @@
+ds-section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.stag {
+  font-family: var(--ds-font-mono);
+  font-size: 10px;
+  color: var(--ds-accent);
+  letter-spacing: 3px;
+}
+
+.stitle {
+  font-size: 20px;
+  font-weight: 500;
+}

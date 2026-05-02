@@ -1,0 +1,29 @@
+ds-avatar {
+  display: inline-block;
+  width: 56px;
+  height: 56px;
+}
+
+.avatar-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--ds-primary);
+  display: block;
+  object-fit: cover;
+}
+
+.avatar-initials {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--ds-primary);
+  background: var(--ds-bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ds-font-mono);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ds-primary-l);
+}

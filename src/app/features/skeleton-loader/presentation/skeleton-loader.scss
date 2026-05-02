@@ -8,16 +8,16 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background-color: var(--mat-sys-surface-container-highest);
+    background-color: var(--ds-bg3);
     z-index: 1;
   }
 
   &--wave::after {
     background: linear-gradient(
       90deg,
-      var(--mat-sys-surface-container-highest) 25%,
-      var(--mat-sys-surface-bright) 50%,
-      var(--mat-sys-surface-container-highest) 75%
+      var(--ds-bg3) 25%,
+      rgba(255, 255, 255, 0.04) 50%,
+      var(--ds-bg3) 75%
     );
     background-size: 200% 100%;
     animation: ds-skeleton-wave 1.5s ease-in-out infinite;
@@ -36,20 +36,11 @@
 }
 
 @keyframes ds-skeleton-wave {
-  from {
-    background-position-x: 200%;
-  }
-  to {
-    background-position-x: -200%;
-  }
+  from { background-position-x: 200%; }
+  to { background-position-x: -200%; }
 }
 
 @keyframes ds-skeleton-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }

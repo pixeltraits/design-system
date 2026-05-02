@@ -6,3 +6,11 @@
 @use '../app/features/sidenav/presentation/sidenav';
 @use '../app/features/form/presentation/form-field/form-field';
 @use '../app/features/form/presentation/select/select';
+@use '../app/features/status-badge/presentation/status-badge';
+@use '../app/features/badge/presentation/badge';
+@use '../app/features/icon-badge/presentation/icon-badge';
+@use '../app/features/card/presentation/card';
+@use '../app/features/avatar/presentation/avatar';
+@use '../app/features/description-badge/presentation/description-badge';
+@use '../app/features/article-card/presentation/article-card';
+@use '../app/features/section-header/presentation/section-header';

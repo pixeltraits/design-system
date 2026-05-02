@@ -37,9 +37,12 @@ import { DsIconName } from '../../icon/presentation/icon-registry';
     }
 
     .ds-page-not-found__title {
-      font: var(--mat-sys-headline-small);
-      color: var(--mat-sys-on-surface);
+      font-family: var(--ds-font-sans);
+      font-size: var(--ds-fs-heading);
+      font-weight: var(--ds-fw-medium);
+      color: var(--ds-text);
       margin: 0;
+      text-align: center;
     }
   `,
 })

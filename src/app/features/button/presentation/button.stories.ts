@@ -26,7 +26,7 @@ export default meta;
 export const Primary: Story = {
   render: (args) => ({
     props: args,
-    template: `<button [dsButton]="dsButton">Primary</button>`,
+    template: `<button [dsButton]="dsButton">Voir mes services</button>`,
   }),
   args: { dsButton: 'primary' },
 };
@@ -34,7 +34,7 @@ export const Primary: Story = {
 export const Secondary: Story = {
   render: (args) => ({
     props: args,
-    template: `<button [dsButton]="dsButton">Secondary</button>`,
+    template: `<button [dsButton]="dsButton">Lire le blog</button>`,
   }),
   args: { dsButton: 'secondary' },
 };
@@ -42,7 +42,7 @@ export const Secondary: Story = {
 export const Danger: Story = {
   render: (args) => ({
     props: args,
-    template: `<button [dsButton]="dsButton">Danger</button>`,
+    template: `<button [dsButton]="dsButton">Supprimer</button>`,
   }),
   args: { dsButton: 'danger' },
 };
@@ -62,15 +62,10 @@ export const Disabled: Story = {
 export const AllVariants: Story = {
   render: () => ({
     template: `
-      <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 16px;">
-        <button dsButton="primary">Primary</button>
-        <button dsButton="secondary">Secondary</button>
-        <button dsButton="danger">Danger</button>
-      </div>
-      <div style="display: flex; gap: 16px; align-items: center;">
-        <button dsButton="primary" disabled>Primary</button>
-        <button dsButton="secondary" disabled>Secondary</button>
-        <button dsButton="danger" disabled>Danger</button>
+      <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+        <button dsButton="primary">Voir mes services</button>
+        <button dsButton="secondary">Lire le blog</button>
+        <button dsButton="danger">Supprimer</button>
       </div>
     `,
   }),

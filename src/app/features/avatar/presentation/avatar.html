@@ -1,0 +1,5 @@
+@if (src()) {
+  <img class="avatar-img" [src]="src()" [alt]="alt()" />
+} @else {
+  <span class="avatar-initials" [attr.aria-label]="alt() || initials()">{{ initials() }}</span>
+}

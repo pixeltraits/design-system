@@ -3,14 +3,20 @@
 
 html {
   height: 100%;
+  color-scheme: dark;
   @include theme.theme();
 }
 
 body {
-  color-scheme: light;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+  background-color: var(--ds-bg);
+  color: var(--ds-text);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-fs-body);
+  font-weight: var(--ds-fw-regular);
   margin: 0;
   height: 100%;
+}
+
+a {
+  text-decoration: none;
 }
