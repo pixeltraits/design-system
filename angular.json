@@ -89,6 +89,7 @@
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "configDir": ".storybook",
+            "tsConfig": ".storybook/tsconfig.json",
             "browserTarget": "design-system:build",
             "compodoc": true,
             "compodocArgs": [
@@ -104,6 +105,7 @@
           "builder": "@storybook/angular:build-storybook",
           "options": {
             "configDir": ".storybook",
+            "tsConfig": ".storybook/tsconfig.json",
             "browserTarget": "design-system:build",
             "compodoc": true,
             "compodocArgs": [
