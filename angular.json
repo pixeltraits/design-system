@@ -90,6 +90,7 @@
           "options": {
             "configDir": ".storybook",
             "browserTarget": "design-system:build",
+            "tsConfig": ".storybook/tsconfig.json",
             "compodoc": true,
             "compodocArgs": [
               "-e",
@@ -105,6 +106,7 @@
           "options": {
             "configDir": ".storybook",
             "browserTarget": "design-system:build",
+            "tsConfig": ".storybook/tsconfig.json",
             "compodoc": true,
             "compodocArgs": [
               "-e",
