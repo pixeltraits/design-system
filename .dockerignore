@@ -4,4 +4,5 @@ storybook-static
 .git
 .github
 .storybook/*.json
+!.storybook/tsconfig.json
 documentation.json
