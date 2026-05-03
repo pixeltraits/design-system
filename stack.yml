@@ -6,7 +6,6 @@ services:
     ports:
       - target: 80
         published: 8085
-        host_ip: "127.0.0.1"
         protocol: tcp
     networks:
       - internal
