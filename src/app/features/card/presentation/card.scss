@@ -1,5 +1,6 @@
 ds-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--ds-bg2);
   border: 0.5px solid var(--ds-border);
   border-radius: 10px;
