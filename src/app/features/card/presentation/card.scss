@@ -11,10 +11,16 @@ ds-card {
   }
 }
 
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+
 .card-title {
   font-size: 13px;
   font-weight: 500;
-  margin-bottom: 7px;
 }
 
 .card-description {

@@ -1,3 +1,5 @@
-<ng-content select="[dsCardIcon]"></ng-content>
-<div class="card-title">{{ title() }}</div>
+<div class="card-header">
+  <ng-content select="[dsCardIcon]"></ng-content>
+  <div class="card-title">{{ title() }}</div>
+</div>
 <div class="card-description">{{ description() }}</div>
