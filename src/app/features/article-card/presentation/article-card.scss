@@ -33,6 +33,28 @@ ds-article-card {
   color: var(--ds-text-muted2);
 }
 
+// Badges automatiques du temps de lecture, calculés depuis `readTime` :
+//   - `> 10 min` → orange (token `--ds-status-warning-*`)
+//   - `> 30 min` → rouge  (token `--ds-status-unavailable-*`)
+.aread--medium,
+.aread--long {
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 0.5px solid;
+}
+
+.aread--medium {
+  color: var(--ds-status-warning-color);
+  background: var(--ds-status-warning-bg);
+  border-color: var(--ds-status-warning-border);
+}
+
+.aread--long {
+  color: var(--ds-status-unavailable-color);
+  background: var(--ds-status-unavailable-bg);
+  border-color: var(--ds-status-unavailable-border);
+}
+
 .atitle {
   font-size: 13px;
   font-weight: 500;

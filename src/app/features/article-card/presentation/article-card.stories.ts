@@ -24,3 +24,41 @@ export const Default: Story = {
     `,
   }),
 };
+
+/**
+ * Lecture moyenne (> 10 min) — le badge `readTime` bascule en orange
+ * (token `--ds-status-warning-*`) pour signaler une lecture engageante.
+ */
+export const Medium: Story = {
+  render: () => ({
+    template: `
+      <ds-article-card
+        tag="FULLSTACK"
+        readTime="25 min"
+        title="Déployer une app Angular + NestJS en production"
+        excerpt="Front public, API, back-office d'administration et base de données : packager une vraie stack web en stacks Docker Swarm distinctes."
+        date="2026-05-17"
+        link="#"
+      ></ds-article-card>
+    `,
+  }),
+};
+
+/**
+ * Lecture longue (> 30 min) — le badge `readTime` bascule en rouge
+ * (token `--ds-status-unavailable-*`) pour signaler un guide long.
+ */
+export const Long: Story = {
+  render: () => ({
+    template: `
+      <ds-article-card
+        tag="DEVOPS"
+        readTime="50 min"
+        title="Mettre en place une infra DevOps : du serveur à la production"
+        excerpt="Passer d'un serveur Debian vide à une infra qui déploie en prod à chaque commit : Docker Swarm, Nginx, CI/CD GitHub et sécurité en couches."
+        date="2026-05-17"
+        link="#"
+      ></ds-article-card>
+    `,
+  }),
+};

@@ -1,6 +1,10 @@
 <div class="atop">
   <span class="atag">{{ tag() }}</span>
-  <span class="aread">{{ readTime() }}</span>
+  <span
+    class="aread"
+    [class.aread--medium]="readTimeVariant() === 'medium'"
+    [class.aread--long]="readTimeVariant() === 'long'"
+  >{{ readTime() }}</span>
 </div>
 <div class="atitle">{{ title() }}</div>
 <div class="aexcerpt">{{ excerpt() }}</div>
