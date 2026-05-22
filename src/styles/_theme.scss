@@ -1,23 +1,130 @@
 @use '@angular/material' as mat;
 
-@mixin theme() {
-  @include mat.theme((
-    color: (
-      theme-type: dark,
-      primary: mat.$violet-palette,
-      tertiary: mat.$orange-palette,
-    ),
-    typography: (
-      brand-family: 'Space Grotesk',
-      plain-family: 'Space Grotesk',
-      bold-weight: 700,
-      medium-weight: 500,
-      regular-weight: 400,
-    ),
-    density: 0,
-  ));
+// ════════════════════════════════════════════════════════════════════════
+// Système de thème jour/nuit
+//
+// Le DS expose deux palettes de tokens (`--ds-*` + `--mat-sys-*`) qui
+// commutent via l'attribut HTML `[data-theme]` :
+//
+//   - défaut (pas d'attribut) ou `[data-theme="day"]` → palette JOUR
+//   - `[data-theme="night"]`                          → palette NUIT
+//
+// L'attribut peut être posé à n'importe quel niveau du DOM (sur `<html>`
+// pour un défaut global, ou sur un wrapper local pour scoper une zone).
+// Les composants DS exposeront aussi un input `theme` qui pose l'attribut
+// sur leur host pour un override granulaire.
+// ════════════════════════════════════════════════════════════════════════
 
-  // Override Material system color tokens
+// Palette JOUR (défaut)
+@mixin day-tokens() {
+  color-scheme: light;
+
+  // Material system tokens
+  --mat-sys-primary: #6b7aff;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-primary-container: rgba(107, 122, 255, 0.10);
+  --mat-sys-on-primary-container: #2a3699;
+  --mat-sys-tertiary: #c2410c;
+  --mat-sys-on-tertiary: #ffffff;
+  --mat-sys-background: #ffffff;
+  --mat-sys-on-background: #1a1a1a;
+  --mat-sys-surface: #ffffff;
+  --mat-sys-on-surface: #1a1a1a;
+  --mat-sys-surface-variant: #f6f8fa;
+  --mat-sys-on-surface-variant: #55534c;
+  --mat-sys-surface-container-lowest: #ffffff;
+  --mat-sys-surface-container-low: #fafbfc;
+  --mat-sys-surface-container: #f6f8fa;
+  --mat-sys-surface-container-high: #f0f2f5;
+  --mat-sys-surface-container-highest: #e8ebef;
+  --mat-sys-outline: rgba(0, 0, 0, 0.12);
+  --mat-sys-outline-variant: rgba(0, 0, 0, 0.20);
+
+  // DS tokens
+  --ds-bg: #ffffff;
+  --ds-bg2: #ffffff;
+  --ds-bg3: #f0f2f5;
+  --ds-border: rgba(0, 0, 0, 0.10);
+  --ds-border2: rgba(0, 0, 0, 0.18);
+  --ds-primary: #6b7aff;
+  --ds-primary-l: #4f5bd5;
+  --ds-accent: #c2410c;
+  --ds-accent-dim: rgba(194, 65, 12, 0.08);
+  --ds-text: #1a1a1a;
+  --ds-text-muted: #55534c;
+  --ds-text-muted2: #8c897f;
+
+  // ── Status badge (3 variants : available / warning / unavailable)
+  --ds-status-available-bg: rgba(107, 122, 255, 0.18);
+  --ds-status-available-border: rgba(107, 122, 255, 0.55);
+  --ds-status-available-color: #4f5bd5;
+  --ds-status-available-dot: #16a34a;
+  --ds-status-warning-bg: rgba(249, 115, 22, 0.12);
+  --ds-status-warning-border: rgba(249, 115, 22, 0.5);
+  --ds-status-warning-color: #c2410c;
+  --ds-status-warning-dot: #ea580c;
+  --ds-status-unavailable-bg: rgba(239, 68, 68, 0.10);
+  --ds-status-unavailable-border: rgba(239, 68, 68, 0.5);
+  --ds-status-unavailable-color: #b91c1c;
+  --ds-status-unavailable-dot: #ef4444;
+
+  // ── Badge (3 variants : default / primary / accent)
+  --ds-badge-bg: #ffffff;
+  --ds-badge-border: rgba(0, 0, 0, 0.12);
+  --ds-badge-color: #55534c;
+  --ds-badge-primary-bg: rgba(107, 122, 255, 0.08);
+  --ds-badge-primary-border: rgba(107, 122, 255, 0.5);
+  --ds-badge-primary-color: #4f5bd5;
+  --ds-badge-accent-bg: rgba(249, 115, 22, 0.08);
+  --ds-badge-accent-border: rgba(249, 115, 22, 0.5);
+  --ds-badge-accent-color: #c2410c;
+
+  // ── Button secondary (ghost) — violet plein lisible sur blanc
+  --ds-button-secondary-border: rgba(107, 122, 255, 0.45);
+  --ds-button-secondary-color: #4f5bd5;
+  --ds-button-secondary-hover-border: #4f5bd5;
+  --ds-button-secondary-hover-color: #4f5bd5;
+
+  // ── Segmented toggle (ex. DsThemeToggle)
+  --ds-toggle-bg: rgba(0, 0, 0, 0.04);
+  --ds-toggle-active-bg: rgba(0, 0, 0, 0.10);
+  // Icônes thématiques du DsThemeToggle : violet pour la lune, orange pour le soleil.
+  --ds-toggle-moon-color: #6b7aff;
+  --ds-toggle-sun-color: #c2410c;
+
+  // ── Code block (article)
+  --ds-code-bg: #13131f;
+  --ds-code-color: #e8e6f0;
+  --ds-code-copy-bg: rgba(255, 255, 255, 0.10);
+  --ds-code-copy-border: rgba(255, 255, 255, 0.20);
+  --ds-code-copy-color: rgba(232, 230, 240, 0.85);
+  --ds-code-copy-hover-bg: rgba(255, 255, 255, 0.18);
+  --ds-code-copy-hover-border: rgba(255, 255, 255, 0.4);
+  --ds-code-copy-hover-color: #ffffff;
+  --ds-code-copy-success-bg: rgba(63, 185, 80, 0.16);
+  --ds-code-copy-success-border: rgba(63, 185, 80, 0.55);
+  --ds-code-copy-success-color: #6ee787;
+
+  // ── Action card (CTA verticale icône XL + label)
+  --ds-action-card-bg: #ffffff;
+  --ds-action-card-border: rgba(0, 0, 0, 0.10);
+  --ds-action-card-color: #55534c;
+  --ds-action-card-icon-color: #1a1a1a;
+  --ds-action-card-hover-bg: #ffffff;
+  --ds-action-card-hover-border: #4f5bd5;
+  --ds-action-card-hover-color: #1a1a1a;
+
+  // ── Tech card (coquille des cards savoir-faire / portfolio)
+  --ds-tech-card-bg: #ffffff;
+  --ds-tech-card-border: rgba(0, 0, 0, 0.10);
+  --ds-tech-card-hover-border: #4f5bd5;
+}
+
+// Palette NUIT
+@mixin night-tokens() {
+  color-scheme: dark;
+
+  // Material system tokens
   --mat-sys-primary: #6b7aff;
   --mat-sys-on-primary: #ffffff;
   --mat-sys-primary-container: rgba(107, 122, 255, 0.18);
@@ -38,33 +145,107 @@
   --mat-sys-outline: rgba(91, 106, 255, 0.15);
   --mat-sys-outline-variant: rgba(91, 106, 255, 0.3);
 
-  // ── Design tokens ────────────────────────────────────────
-
-  // Backgrounds
+  // DS tokens
   --ds-bg: #08080f;
   --ds-bg2: #0e0e1a;
   --ds-bg3: #13131f;
-
-  // Borders
   --ds-border: rgba(91, 106, 255, 0.15);
   --ds-border2: rgba(91, 106, 255, 0.3);
-
-  // Brand colors
   --ds-primary: #6b7aff;
   --ds-primary-l: #8b9aff;
   --ds-accent: #f97316;
   --ds-accent-dim: rgba(249, 115, 22, 0.12);
-
-  // Text
   --ds-text: #e8e6f0;
   --ds-text-muted: #9896a8;
   --ds-text-muted2: #6b6a7a;
 
-  // Fonts
+  // ── Status badge (3 variants)
+  --ds-status-available-bg: rgba(107, 122, 255, 0.10);
+  --ds-status-available-border: rgba(91, 106, 255, 0.3);
+  --ds-status-available-color: #8b9aff;
+  --ds-status-available-dot: #4ade80;
+  --ds-status-warning-bg: rgba(249, 115, 22, 0.10);
+  --ds-status-warning-border: rgba(249, 115, 22, 0.4);
+  --ds-status-warning-color: #fb923c;
+  --ds-status-warning-dot: #f97316;
+  --ds-status-unavailable-bg: rgba(239, 68, 68, 0.10);
+  --ds-status-unavailable-border: rgba(239, 68, 68, 0.4);
+  --ds-status-unavailable-color: #f87171;
+  --ds-status-unavailable-dot: #ef4444;
+
+  // ── Badge (3 variants)
+  --ds-badge-bg: #13131f;
+  --ds-badge-border: rgba(91, 106, 255, 0.15);
+  --ds-badge-color: #9896a8;
+  --ds-badge-primary-bg: transparent;
+  --ds-badge-primary-border: rgba(107, 122, 255, 0.4);
+  --ds-badge-primary-color: #8b9aff;
+  --ds-badge-accent-bg: transparent;
+  --ds-badge-accent-border: rgba(249, 115, 22, 0.35);
+  --ds-badge-accent-color: #fb923c;
+
+  // ── Button secondary (ghost)
+  --ds-button-secondary-border: rgba(255, 255, 255, 0.25);
+  --ds-button-secondary-color: #e8e6f0;
+  --ds-button-secondary-hover-border: #8b9aff;
+  --ds-button-secondary-hover-color: #8b9aff;
+
+  // ── Segmented toggle
+  --ds-toggle-bg: rgba(255, 255, 255, 0.06);
+  --ds-toggle-active-bg: rgba(255, 255, 255, 0.14);
+  --ds-toggle-moon-color: #8b9aff;
+  --ds-toggle-sun-color: #f97316;
+
+  // ── Code block (article) — fond sombre conservé même en nuit (lisibilité
+  //   du code monospace), seul le bouton copier passe en palette nuit.
+  --ds-code-bg: #13131f;
+  --ds-code-color: #e8e6f0;
+  --ds-code-copy-bg: rgba(255, 255, 255, 0.06);
+  --ds-code-copy-border: rgba(255, 255, 255, 0.14);
+  --ds-code-copy-color: rgba(232, 230, 240, 0.65);
+  --ds-code-copy-hover-bg: rgba(255, 255, 255, 0.10);
+  --ds-code-copy-hover-border: rgba(255, 255, 255, 0.3);
+  --ds-code-copy-hover-color: #ffffff;
+  --ds-code-copy-success-bg: rgba(63, 185, 80, 0.10);
+  --ds-code-copy-success-border: rgba(63, 185, 80, 0.45);
+  --ds-code-copy-success-color: #3fb950;
+
+  // ── Action card
+  --ds-action-card-bg: #13131f;
+  --ds-action-card-border: rgba(91, 106, 255, 0.15);
+  --ds-action-card-color: #6b6a7a;
+  --ds-action-card-icon-color: #ffffff;
+  --ds-action-card-hover-bg: #13131f;
+  --ds-action-card-hover-border: rgba(91, 106, 255, 0.3);
+  --ds-action-card-hover-color: #e8e6f0;
+
+  // ── Tech card
+  --ds-tech-card-bg: #0e0e1a;
+  --ds-tech-card-border: rgba(91, 106, 255, 0.15);
+  --ds-tech-card-hover-border: rgba(91, 106, 255, 0.3);
+}
+
+@mixin theme() {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$violet-palette,
+      tertiary: mat.$orange-palette,
+    ),
+    typography: (
+      brand-family: 'Space Grotesk',
+      plain-family: 'Space Grotesk',
+      bold-weight: 700,
+      medium-weight: 500,
+      regular-weight: 400,
+    ),
+    density: 0,
+  ));
+
+  // ─── Tokens partagés (typographie, échelles — invariants jour/nuit) ──
   --ds-font-sans: 'Space Grotesk', sans-serif;
   --ds-font-mono: 'Space Mono', monospace;
 
-  // Type scale — sizes
   --ds-fs-display: 56px;
   --ds-fs-display-sm: 48px;
   --ds-fs-title: 26px;
@@ -76,10 +257,45 @@
   --ds-fs-caption: 11px;
   --ds-fs-label: 10px;
 
-  // Type scale — weights
   --ds-fw-bold: 700;
   --ds-fw-semibold: 600;
   --ds-fw-medium: 500;
   --ds-fw-regular: 400;
   --ds-fw-light: 300;
+
+  // ─── Palette jour par défaut (sur l'élément qui inclut le mixin) ─────
+  @include day-tokens();
+
+  // ─── Override nuit — déclenché par [data-theme="night"] à n'importe
+  //     quel niveau du DOM (sur l'élément hôte ou un descendant).
+  &[data-theme='night'],
+  & [data-theme='night'] {
+    @include night-tokens();
+  }
+
+  // ─── Rétablir le jour à l'intérieur d'une zone nuit (utile pour les
+  //     overrides locaux via input `theme="day"` sur un composant).
+  & [data-theme='day'] {
+    @include day-tokens();
+  }
+
+  // ─── Classes utilitaires globales — appliquées via la directive `DsTechCard`
+  //     ou directement en posant la classe sur le host (`host: { class: 'ds-tech-card' }`).
+  .ds-tech-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    background: var(--ds-tech-card-bg);
+    border: 1px solid var(--ds-tech-card-border);
+    border-radius: 12px;
+    padding: 22px 20px 20px;
+    overflow: hidden;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .ds-tech-card:hover {
+    border-color: var(--ds-tech-card-hover-border);
+    transform: translateY(-2px);
+  }
 }

@@ -1,0 +1,66 @@
+:host {
+  position: relative;
+  display: block;
+  margin: 20px 0;
+}
+
+.ds-code {
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  background: var(--ds-code-bg);
+  border-radius: 10px;
+  font-family: var(--ds-font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ds-code-color);
+}
+
+// Bouton copier — apparait au hover/focus, reste visible 2 s après le clic
+// (état `is-copied`) pour donner le feedback de succès.
+.ds-code-copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  font-family: var(--ds-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  color: var(--ds-code-copy-color);
+  background: var(--ds-code-copy-bg);
+  border: 0.5px solid var(--ds-code-copy-border);
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    background-color 0.18s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--ds-code-copy-hover-color);
+    background: var(--ds-code-copy-hover-bg);
+    border-color: var(--ds-code-copy-hover-border);
+    outline: none;
+  }
+
+  &.is-copied {
+    color: var(--ds-code-copy-success-color);
+    background: var(--ds-code-copy-success-bg);
+    border-color: var(--ds-code-copy-success-border);
+  }
+}
+
+:host(:hover) .ds-code-copy,
+:host(:focus-within) .ds-code-copy,
+.ds-code-copy.is-copied {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .ds-code-copy {
+    opacity: 1;
+  }
+}

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
+import { signal } from '@angular/core';
 import { DsIcon } from './icon';
 import { DS_ICONS, DsIconName } from './icon-registry';
 
@@ -120,23 +121,95 @@ export const SolidVsOutline: Story = {
 export const Gallery: Story = {
   render: () => {
     const icons = allIconNames;
+    // Signal partagé entre toutes les cellules : le nom de la dernière
+    // icône copiée. Permet d'afficher un feedback "Copié !" ~1.5 s sur la
+    // cellule cliquée (zoneless friendly, contrairement à un POJO).
+    const copied = signal<string>('');
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const copy = async (name: string): Promise<void> => {
+      try {
+        await navigator.clipboard.writeText(name);
+        copied.set(name);
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => copied.set(''), 1500);
+      } catch {
+        // clipboard API indisponible — silent fail
+      }
+    };
+
     return {
-      props: { icons },
+      props: { icons, copied, copy },
       template: `
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px;">
+        <style>
+          .ds-icon-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+          }
+          .ds-icon-gallery-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 8px;
+            border-radius: 8px;
+            /* Liseré discret au repos pour signaler l'interactivité — teinté
+               primary translucide, plus visible que la bordure outline neutre. */
+            border: 1px solid color-mix(in srgb, var(--mat-sys-primary) 22%, transparent);
+            background: color-mix(in srgb, var(--mat-sys-primary) 3%, transparent);
+            color: inherit;
+            cursor: pointer;
+            font-family: inherit;
+            transition: border-color 0.2s ease, background-color 0.2s ease,
+                        transform 0.18s ease, box-shadow 0.2s ease;
+          }
+          .ds-icon-gallery-cell:hover {
+            border-color: var(--mat-sys-primary);
+            background: color-mix(in srgb, var(--mat-sys-primary) 8%, transparent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--mat-sys-primary) 18%, transparent);
+          }
+          .ds-icon-gallery-cell:active {
+            transform: translateY(-1px);
+          }
+          .ds-icon-gallery-cell:focus-visible {
+            outline: 2px solid var(--mat-sys-primary);
+            outline-offset: 2px;
+          }
+          .ds-icon-gallery-cell.is-copied,
+          .ds-icon-gallery-cell.is-copied:hover {
+            border-color: rgba(63, 185, 80, 0.55);
+            background: rgba(63, 185, 80, 0.10);
+            box-shadow: none;
+            transform: none;
+          }
+          .ds-icon-gallery-cell .ds-icon-gallery-label {
+            font-size: 11px;
+            text-align: center;
+            word-break: break-all;
+            color: var(--mat-sys-on-surface-variant);
+            transition: color 0.2s ease;
+          }
+          .ds-icon-gallery-cell.is-copied .ds-icon-gallery-label {
+            color: #3fb950;
+          }
+        </style>
+        <div class="ds-icon-gallery">
           @for (name of icons; track name) {
-            <div style="
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              gap: 8px;
-              padding: 16px 8px;
-              border-radius: 8px;
-              border: 1px solid color-mix(in srgb, var(--mat-sys-outline) 30%, transparent);
-            ">
+            <button
+              type="button"
+              class="ds-icon-gallery-cell"
+              [class.is-copied]="copied() === name"
+              (click)="copy(name)"
+              [attr.aria-label]="'Copier le nom ' + name"
+              [title]="copied() === name ? 'Copié !' : 'Cliquer pour copier le nom'"
+            >
               <ds-icon [icon]="name" size="lg" />
-              <code style="font-size: 11px; color: var(--mat-sys-on-surface-variant); text-align: center; word-break: break-all;">{{ name }}</code>
-            </div>
+              <code class="ds-icon-gallery-label">
+                {{ copied() === name ? 'Copié !' : name }}
+              </code>
+            </button>
           }
         </div>
       `,

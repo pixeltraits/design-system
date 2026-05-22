@@ -1,0 +1,373 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Accessibility" />
+
+<style>{`
+  .a11y-section { margin: 32px 0; }
+  .a11y-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .a11y-card {
+    border: 1px solid color-mix(in srgb, var(--mat-sys-outline) 30%, transparent);
+    border-radius: 8px;
+    padding: 14px 16px;
+    background: color-mix(in srgb, var(--mat-sys-primary) 3%, transparent);
+  }
+  .a11y-card--good { border-color: rgba(63, 185, 80, 0.45); background: rgba(63, 185, 80, 0.06); }
+  .a11y-card--bad  { border-color: rgba(239, 68, 68, 0.40); background: rgba(239, 68, 68, 0.06); }
+  .a11y-card__title {
+    font-family: var(--ds-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    color: var(--ds-text-muted2);
+  }
+  .a11y-card--good .a11y-card__title { color: #3fb950; }
+  .a11y-card--bad  .a11y-card__title { color: #f87171; }
+  .a11y-card pre {
+    margin: 0 !important;
+    background: transparent !important;
+    font-size: 12px !important;
+  }
+  .a11y-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 13px;
+    color: var(--ds-text);
+  }
+  .a11y-table th, .a11y-table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    vertical-align: top;
+  }
+  .a11y-table th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ds-text-muted2);
+    font-weight: 600;
+  }
+  .a11y-table code {
+    font-family: var(--ds-font-mono);
+    font-size: 12px;
+    color: var(--ds-primary-l, #8b9aff);
+  }
+`}</style>
+
+# Accessibilité
+
+Le design system vise la conformité **WCAG 2.1 niveau AA**. Une partie des
+règles est portée par les composants eux-mêmes — l'autre dépend du contexte
+d'intégration et reste à la charge de l'application consommatrice.
+
+Chaque story est validée par **`@storybook/addon-a11y`**. Le rapport
+`axe-core` apparaît dans l'onglet **A11y** du panneau bas de Storybook,
+et la condition pour qu'un composant soit publié est zéro violation.
+
+---
+
+## Garanties au niveau composant
+
+<table className="a11y-table">
+  <thead>
+    <tr>
+      <th>Critère WCAG</th>
+      <th>Implémenté par le DS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.3.1 — Structure sémantique</td>
+      <td>HTML natif partout — <code>button</code> pour les actions, <code>a</code> pour les liens, jamais de <code>div onClick</code>. Listes, tables et formulaires utilisent les balises correspondantes.</td>
+    </tr>
+    <tr>
+      <td>1.4.3 — Contraste minimum</td>
+      <td>Les palettes jour et nuit respectent ≥ 4.5:1 sur les textes normaux et ≥ 3:1 sur les bordures et composants UI. La toolbar Thème permet la vérification visuelle dans les deux modes.</td>
+    </tr>
+    <tr>
+      <td>1.4.1 — Information par la couleur</td>
+      <td>Les états visuels (succès, avertissement, erreur) sont toujours doublés d'une icône ou d'un dot — un daltonien lit la même information. Voir <code>DsStatusBadge</code>, le feedback de copie de <code>DsCodeBlock</code>.</td>
+    </tr>
+    <tr>
+      <td>2.1.1 — Accès clavier</td>
+      <td>Les composants interactifs sont atteignables au <code>Tab</code> et activables au <code>Enter</code> / <code>Espace</code> grâce aux éléments natifs sous-jacents. Aucun <code>tabindex</code> positif n'est utilisé.</td>
+    </tr>
+    <tr>
+      <td>2.4.7 — Indicateur de focus</td>
+      <td>Chaque composant interactif définit un <code>:focus-visible</code> avec outline 2 px <code>var(--ds-primary)</code> et <code>outline-offset: 2px</code>.</td>
+    </tr>
+    <tr>
+      <td>4.1.2 — Nom, rôle, valeur</td>
+      <td>Les composants segmentés (<code>DsThemeToggle</code>) exposent <code>role="radiogroup"</code> + <code>aria-checked</code>. Les dialogues utilisent <code>role="dialog"</code> + <code>aria-modal</code>.</td>
+    </tr>
+    <tr>
+      <td>2.3.3 — Animations et mouvement</td>
+      <td>Les animations CSS (bob, scan, pulse, gather…) sont neutralisées sous <code>@media (prefers-reduced-motion: reduce)</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Responsabilités à l'intégration
+
+Le contexte d'usage échappe au composant. L'application consommatrice
+fournit les libellés contextuels, les landmarks de page, les attributs
+d'état applicatif.
+
+### Noms accessibles
+
+Un composant qui n'a pas de libellé textuel intrinsèque doit recevoir un
+`aria-label`.
+
+<div className="a11y-grid">
+  <div className="a11y-card a11y-card--bad">
+    <div className="a11y-card__title">À éviter</div>
+```html
+<button dsButton="primary">
+  <ds-icon icon="xmark" />
+</button>
+```
+*Lecteur d'écran : « bouton ».*
+  </div>
+  <div className="a11y-card a11y-card--good">
+    <div className="a11y-card__title">À faire</div>
+```html
+<button
+  dsButton="primary"
+  aria-label="Fermer la modale">
+  <ds-icon icon="xmark" />
+</button>
+```
+*Lecteur d'écran : « bouton, fermer la modale ».*
+  </div>
+</div>
+
+### Icônes décoratives et informatives
+
+Une icône accompagnée d'un texte est décorative — l'élément qui la porte
+prend `aria-hidden="true"` pour éviter la double lecture.
+
+<div className="a11y-grid">
+  <div className="a11y-card a11y-card--bad">
+    <div className="a11y-card__title">À éviter</div>
+```html
+<button dsButton="primary">
+  <ds-icon icon="trash" />
+  Supprimer
+</button>
+```
+*Lecteur d'écran : « trash, Supprimer, bouton ».*
+  </div>
+  <div className="a11y-card a11y-card--good">
+    <div className="a11y-card__title">À faire</div>
+```html
+<button dsButton="primary">
+  <span aria-hidden="true">
+    <ds-icon icon="trash" />
+  </span>
+  Supprimer
+</button>
+```
+*Lecteur d'écran : « Supprimer, bouton ».*
+  </div>
+</div>
+
+### Landmarks de page
+
+Le DS fournit des briques. La page consommatrice pose les landmarks
+(`<header>`, `<nav>`, `<main>`, `<footer>`) qui structurent la lecture
+au lecteur d'écran.
+
+<div className="a11y-grid">
+  <div className="a11y-card a11y-card--bad">
+    <div className="a11y-card__title">À éviter</div>
+```html
+<div class="page">
+  <div class="nav">...</div>
+  <div class="content">...</div>
+  <div class="footer">...</div>
+</div>
+```
+*Aucun landmark — pas de saut possible pour un lecteur d'écran.*
+  </div>
+  <div className="a11y-card a11y-card--good">
+    <div className="a11y-card__title">À faire</div>
+```html
+<header><nav aria-label="Principale">…</nav></header>
+<main id="main-content">
+  …
+</main>
+<footer>…</footer>
+```
+  </div>
+</div>
+
+### États contextuels (aria-current, aria-expanded)
+
+Le composant connaît son état interne. L'état applicatif (page active,
+menu ouvert) vient de la page qui l'utilise et doit être propagé en
+attribut ARIA.
+
+<div className="a11y-grid">
+  <div className="a11y-card a11y-card--bad">
+    <div className="a11y-card__title">À éviter</div>
+```html
+<a routerLink="/blog"
+   routerLinkActive="is-active">
+  Blog
+</a>
+```
+*La classe visuelle signale l'état mais le DOM ARIA reste muet.*
+  </div>
+  <div className="a11y-card a11y-card--good">
+    <div className="a11y-card__title">À faire</div>
+```html
+<a routerLink="/blog"
+   routerLinkActive="is-active"
+   #rla="routerLinkActive"
+   [attr.aria-current]="rla.isActive ? 'page' : null">
+  Blog
+</a>
+```
+  </div>
+</div>
+
+### Liens externes
+
+`target="_blank"` impose `rel="noopener noreferrer"` et un signal explicite
+que le lien ouvre un nouvel onglet.
+
+```html
+<a href="https://github.com/codelyr"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="GitHub Codelyr (ouvre un nouvel onglet)">
+  GitHub
+</a>
+```
+
+`DsActionCard` pose automatiquement ces attributs quand l'input `external`
+vaut `true`.
+
+### Modales et overlays
+
+`DsDialog` (basé sur `MatDialog`) applique `role="dialog"` et
+`aria-modal="true"`, et utilise `cdkTrapFocus` du CDK Material. Le
+consommateur prend en charge le reste.
+
+- Le titre accessible passe par `aria-labelledby` pointant vers le titre
+  interne, ou un `aria-label` quand aucun titre n'est visible.
+- La fermeture sur `Escape` est active par défaut (`disableClose: false`).
+- Le focus est rendu au déclencheur à la fermeture (géré par le CDK).
+
+---
+
+## Patterns récurrents
+
+### Bouton icône-seule
+
+```html
+<button type="button"
+        dsButton="secondary"
+        aria-label="Copier le code">
+  <ds-icon icon="copy" />
+</button>
+```
+
+### Navigation principale
+
+```html
+<nav aria-label="Navigation principale">
+  <ul>
+    <li>
+      <a routerLink="/"
+         routerLinkActive="is-active"
+         [routerLinkActiveOptions]="{ exact: true }"
+         #rla="routerLinkActive"
+         [attr.aria-current]="rla.isActive ? 'page' : null">
+        Accueil
+      </a>
+    </li>
+    <li>…</li>
+  </ul>
+</nav>
+```
+
+### Toggle d'état (mode jour / nuit)
+
+`DsThemeToggle` porte sa sémantique radiogroup en interne. L'input
+`ariaLabel` suffit à le rendre intelligible.
+
+```html
+<ds-theme-toggle
+  ariaLabel="Mode d'affichage du site"
+  [(value)]="theme" />
+```
+
+### Modale custom hors DsDialog
+
+```html
+<div role="dialog"
+     aria-modal="true"
+     aria-label="Contact"
+     cdkTrapFocus
+     [cdkTrapFocusAutoCapture]="true">
+  <button type="button"
+          aria-label="Fermer"
+          (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <ng-content />
+</div>
+```
+
+Mémoriser le déclencheur avant l'ouverture et lui rendre le focus à la
+fermeture (`queueMicrotask(() => trigger.focus())`).
+
+### Live region pour feedback asynchrone
+
+```html
+<div role="status" aria-live="polite">
+  @if (isLoading()) {
+    Chargement…
+  } @else if (error()) {
+    Erreur — impossible de charger les liens
+  }
+</div>
+```
+
+`aria-live="assertive"` reste réservé aux erreurs critiques — les autres
+cas conservent `polite` pour ne pas interrompre la lecture en cours.
+
+---
+
+## Vérification
+
+### Pendant le développement
+
+L'onglet **A11y** de Storybook affiche un rapport `axe-core` en temps
+réel sur le composant courant. La toolbar **Thème** permet de vérifier
+les contrastes dans les deux palettes.
+
+### En intégration
+
+- **Axe DevTools** (extension navigateur) sur chaque page complète.
+- **Lighthouse**, catégorie *Accessibility* ≥ 95.
+- Navigation au clavier seul — `Tab`, `Shift+Tab`, `Enter`, `Espace`,
+  `Escape`. Pas de zone piégée, pas d'élément inatteignable.
+- Lecteur d'écran (NVDA / VoiceOver) sur les flux critiques : formulaires,
+  modales, navigation principale.
+
+### Cibles tactiles
+
+Les éléments interactifs visent **44 × 44 px** minimum (WCAG 2.5.5 AAA,
+ramené à 24 × 24 px en AA via 2.5.8 avec clearance suffisante). Le DS
+respecte cette règle pour ses composants principaux ; le toggle passe à
+26 × 26 px en mobile, à corriger lors d'une passe responsive ultérieure.

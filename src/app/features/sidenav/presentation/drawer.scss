@@ -1,0 +1,62 @@
+// Le drawer ne réserve aucune place dans le flux — son scrim et son panneau
+// sont en `position: fixed`.
+:host {
+  display: contents;
+}
+
+// ── Scrim ─────────────────────────────────────────────────
+.ds-drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(4, 4, 10, 0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: ds-drawer-scrim-fade 0.2s ease;
+}
+
+@keyframes ds-drawer-scrim-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// ── Panneau ───────────────────────────────────────────────
+.ds-drawer-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(300px, 82vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-bg2);
+  border-right: 1px solid var(--ds-border);
+  box-shadow: 8px 0 40px rgba(0, 0, 0, 0.55);
+  animation: ds-drawer-slide-left 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-drawer-panel--right {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: 1px solid var(--ds-border);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.55);
+  animation-name: ds-drawer-slide-right;
+}
+
+@keyframes ds-drawer-slide-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes ds-drawer-slide-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-drawer-scrim,
+  .ds-drawer-panel {
+    animation: none;
+  }
+}

@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { DsStatusBadge } from './status-badge';
 
+/**
+ * Pastille d'état avec dot pulsant — 3 niveaux (disponible / avertissement /
+ * indisponible). La sémantique est portée à la fois par la couleur ET le
+ * libellé textuel (respect WCAG 1.4.1 — info pas véhiculée par la couleur seule).
+ *
+ * Palette pilotée par tokens DS (`--ds-status-{available,warning,unavailable}-{bg,border,color,dot}`)
+ * qui basculent automatiquement entre les variantes jour et nuit via
+ * `[data-theme]`. Pour tester : utilise la toolbar « Thème » en haut.
+ */
 const meta: Meta<DsStatusBadge> = {
   title: 'Components/StatusBadge',
   component: DsStatusBadge,
@@ -9,6 +18,7 @@ const meta: Meta<DsStatusBadge> = {
     state: {
       control: 'select',
       options: ['available', 'warning', 'unavailable'],
+      description: 'Niveau d’état — pilote couleur du fond, bordure, dot et libellé.',
     },
   },
 };

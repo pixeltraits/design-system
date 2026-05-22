@@ -1,0 +1,17 @@
+@if (external()) {
+  <a
+    class="ds-action-card-link"
+    [href]="href()"
+    target="_blank"
+    rel="noopener noreferrer"
+    [attr.aria-label]="label() + ' (ouvre un nouvel onglet)'"
+  >
+    <span class="ds-action-card-icon" aria-hidden="true"><ds-icon [icon]="icon()" /></span>
+    {{ label() }}
+  </a>
+} @else {
+  <a class="ds-action-card-link" [href]="href()">
+    <span class="ds-action-card-icon" aria-hidden="true"><ds-icon [icon]="icon()" /></span>
+    {{ label() }}
+  </a>
+}

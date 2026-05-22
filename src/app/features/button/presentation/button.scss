@@ -37,14 +37,14 @@
 
 .ds-button--secondary {
   background: transparent;
-  color: var(--ds-text);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--ds-button-secondary-color);
+  border: 1px solid var(--ds-button-secondary-border);
   padding: 12px 26px;
   border-radius: 7px;
 
   &:hover {
-    border-color: var(--ds-primary-l);
-    color: var(--ds-primary-l);
+    border-color: var(--ds-button-secondary-hover-border);
+    color: var(--ds-button-secondary-hover-color);
   }
 }
 

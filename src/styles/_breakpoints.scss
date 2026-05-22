@@ -1,0 +1,37 @@
+// ════════════════════════════════════════════════════════════════════════
+// Breakpoints responsive — source unique du design system
+//
+// Couche SCSS (et non des CSS custom properties : une `@media` ne peut pas
+// lire une `var()`).
+//
+// Paliers :
+//   tablet  ≤ 1024px  — grilles resserrées
+//   mobile  ≤ 780px   — empilage une colonne
+//   small   ≤ 480px   — ajustements fins (typo, etc.)
+//
+// Usage :
+//   @use '@pixeltraits/design-system/styles/breakpoints' as bp;
+//   @include bp.mobile { ... }
+// ════════════════════════════════════════════════════════════════════════
+
+$tablet: 1024px;
+$mobile: 780px;
+$small: 480px;
+
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media (max-width: $small) {
+    @content;
+  }
+}

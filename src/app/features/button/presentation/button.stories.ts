@@ -4,6 +4,20 @@ import { DsButton } from './button';
 
 type Story = StoryObj<DsButton>;
 
+/**
+ * Directive `dsButton` à poser sur `<button>` ou `<a>`. 3 variants :
+ *
+ * - `primary` (défaut) : violet plein (`--ds-primary`), texte blanc — CTA principal.
+ * - `secondary` : ghost (transparent, bordure + texte selon tokens `--ds-button-secondary-*`)
+ *   — la palette s'adapte automatiquement jour/nuit (violet plein lisible sur fond clair en jour).
+ * - `danger` : rouge (`--mat-sys-error`) — pour les actions destructives.
+ *
+ * États : `:hover`, `:focus-visible` (outline accent violet), `:disabled` (opacité 0.4).
+ *
+ * Bascule la toolbar « Thème » pour valider notamment le variant `secondary`
+ * dont la couleur change entre nuit (texte clair, bordure blanche translucide)
+ * et jour (texte violet plein, bordure violet semi-opaque).
+ */
 const meta: Meta<DsButton> = {
   title: 'Components/Button',
   component: DsButton,
@@ -17,6 +31,7 @@ const meta: Meta<DsButton> = {
     dsButton: {
       control: 'select',
       options: ['primary', 'secondary', 'danger'],
+      description: 'Variant visuel du bouton.',
     },
   },
 };

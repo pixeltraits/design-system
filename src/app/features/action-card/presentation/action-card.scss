@@ -1,0 +1,76 @@
+:host {
+  display: flex;
+  flex: 1;
+  min-width: 220px;
+}
+
+.ds-action-card-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+  background: var(--ds-action-card-bg);
+  border: 1px solid var(--ds-action-card-border);
+  border-radius: 16px;
+  padding: 44px 24px;
+  font-size: 17px;
+  font-weight: var(--ds-fw-medium);
+  color: var(--ds-action-card-color);
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 0.25s, color 0.25s, transform 0.25s, background-color 0.25s;
+
+  &:hover {
+    background: var(--ds-action-card-hover-bg);
+    border-color: var(--ds-action-card-hover-border);
+    color: var(--ds-action-card-hover-color);
+    transform: translateY(-4px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-primary);
+    outline-offset: 2px;
+  }
+}
+
+.ds-action-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ds-action-card-icon-color);
+
+  ds-icon {
+    font-size: 92px;
+  }
+}
+
+// Animations de l'icône — actives sur le host. Le `--ds-action-card-icon-delay`
+// permet de décaler la phase entre plusieurs cards alignées (cf. cactions).
+:host(.ds-action-card--bob) .ds-action-card-icon {
+  animation: ds-action-card-bob 3s ease-in-out infinite;
+  animation-delay: var(--ds-action-card-icon-delay, 0s);
+}
+
+:host(.ds-action-card--bob-sway) .ds-action-card-icon {
+  animation: ds-action-card-bob-sway 3s ease-in-out infinite;
+  animation-delay: var(--ds-action-card-icon-delay, 0s);
+}
+
+@keyframes ds-action-card-bob {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-9px) scale(1.06); }
+}
+
+@keyframes ds-action-card-bob-sway {
+  0% { transform: translateY(0) scale(1) rotate(-6deg); }
+  50% { transform: translateY(-9px) scale(1.06) rotate(6deg); }
+  100% { transform: translateY(0) scale(1) rotate(-6deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host(.ds-action-card--bob) .ds-action-card-icon,
+  :host(.ds-action-card--bob-sway) .ds-action-card-icon {
+    animation: none;
+  }
+}

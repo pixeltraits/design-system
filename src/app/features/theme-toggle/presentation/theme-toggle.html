@@ -1,0 +1,38 @@
+<div class="ds-theme-toggle" role="radiogroup" [attr.aria-label]="ariaLabel()">
+  <button
+    type="button"
+    role="radio"
+    class="seg seg--moon"
+    [class.is-active]="value() === 'night'"
+    [attr.aria-checked]="value() === 'night'"
+    aria-label="Mode nuit"
+    title="Mode nuit"
+    (click)="select('night')"
+  >
+    <ds-icon icon="moon" size="sm" />
+  </button>
+  <button
+    type="button"
+    role="radio"
+    class="seg"
+    [class.is-active]="value() === 'normal'"
+    [attr.aria-checked]="value() === 'normal'"
+    aria-label="Mode par défaut"
+    title="Mode par défaut"
+    (click)="select('normal')"
+  >
+    <span class="zero" aria-hidden="true">0</span>
+  </button>
+  <button
+    type="button"
+    role="radio"
+    class="seg seg--sun"
+    [class.is-active]="value() === 'day'"
+    [attr.aria-checked]="value() === 'day'"
+    aria-label="Mode jour"
+    title="Mode jour"
+    (click)="select('day')"
+  >
+    <ds-icon icon="sun" size="sm" />
+  </button>
+</div>

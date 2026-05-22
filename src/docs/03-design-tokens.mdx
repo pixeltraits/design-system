@@ -1,0 +1,283 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Design Tokens" />
+
+<style>{`
+  .ds-tokens-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .ds-tokens-swatch {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: var(--ds-bg2);
+  }
+  .ds-tokens-swatch__sample {
+    height: 80px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+  .ds-tokens-swatch__meta { padding: 10px 12px; }
+  .ds-tokens-swatch__name {
+    font-family: var(--ds-font-mono);
+    font-size: 12px;
+    color: var(--ds-text);
+  }
+  .ds-tokens-swatch__hint {
+    font-size: 11px;
+    color: var(--ds-text-muted2);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  .ds-tokens-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 32px;
+    font-size: 13px;
+    color: var(--ds-text);
+  }
+  .ds-tokens-table th,
+  .ds-tokens-table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    vertical-align: top;
+  }
+  .ds-tokens-table th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ds-text-muted2);
+    font-weight: 600;
+  }
+  .ds-tokens-table code {
+    font-family: var(--ds-font-mono);
+    font-size: 12px;
+    color: var(--ds-primary-l, #8b9aff);
+  }
+  .ds-tokens-table tr:last-child td { border-bottom: 0; }
+`}</style>
+
+# Design Tokens
+
+La palette du DS passe entièrement par des CSS custom properties — préfixe
+`--ds-*` pour les tokens propres, `--mat-sys-*` pour les tokens Material
+M3. Aucune couleur n'est hardcodée dans les composants. La toolbar
+« Thème » en haut de Storybook permet d'afficher les valeurs en jour ou
+en nuit en temps réel.
+
+---
+
+## Surfaces
+
+Trois niveaux d'élévation pour empiler les surfaces (page, card, rail).
+Chaque token devient plus clair en mode jour, plus sombre en mode nuit.
+
+<div className="ds-tokens-grid">
+  {[
+    ['--ds-bg', 'Fond global de la page'],
+    ['--ds-bg2', 'Surface 1 — card, dialog, panneau'],
+    ['--ds-bg3', 'Surface 2 — rail, footer, header'],
+  ].map(([name, hint]) => (
+    <div key={name} className="ds-tokens-swatch">
+      <div className="ds-tokens-swatch__sample" style={{ background: `var(${name})` }} />
+      <div className="ds-tokens-swatch__meta">
+        <div className="ds-tokens-swatch__name">{name}</div>
+        <div className="ds-tokens-swatch__hint">{hint}</div>
+      </div>
+    </div>
+  ))}
+</div>
+
+## Bordures
+
+Pour séparer deux surfaces ou marquer un état (hover, focus).
+
+<div className="ds-tokens-grid">
+  {[
+    ['--ds-border', 'Bordure standard, état au repos'],
+    ['--ds-border2', 'Bordure mise en avant (hover, focus)'],
+  ].map(([name, hint]) => (
+    <div key={name} className="ds-tokens-swatch" style={{ border: `2px solid var(${name})` }}>
+      <div className="ds-tokens-swatch__sample" style={{ background: 'var(--ds-bg3)' }} />
+      <div className="ds-tokens-swatch__meta">
+        <div className="ds-tokens-swatch__name">{name}</div>
+        <div className="ds-tokens-swatch__hint">{hint}</div>
+      </div>
+    </div>
+  ))}
+</div>
+
+## Couleurs de marque
+
+Le DS Codelyr s'articule autour d'un **violet** (primary) et d'un **orange**
+(accent). Les `-l` (light) sont utilisés pour les textes sur fond sombre,
+les `-dim` pour des fonds translucides.
+
+<div className="ds-tokens-grid">
+  {[
+    ['--ds-primary', 'Violet principal — CTA, focus'],
+    ['--ds-primary-l', 'Variante lighter — texte / icône sur sombre'],
+    ['--ds-accent', 'Orange secondaire — accents, badges'],
+    ['--ds-accent-dim', 'Accent translucide — fonds doux'],
+  ].map(([name, hint]) => (
+    <div key={name} className="ds-tokens-swatch">
+      <div className="ds-tokens-swatch__sample" style={{ background: `var(${name})` }} />
+      <div className="ds-tokens-swatch__meta">
+        <div className="ds-tokens-swatch__name">{name}</div>
+        <div className="ds-tokens-swatch__hint">{hint}</div>
+      </div>
+    </div>
+  ))}
+</div>
+
+## Texte
+
+Trois niveaux de lecture, du plus contrasté (titres) au plus discret
+(placeholder, légendes secondaires).
+
+<div className="ds-tokens-grid">
+  {[
+    ['--ds-text', 'Texte principal'],
+    ['--ds-text-muted', 'Texte secondaire'],
+    ['--ds-text-muted2', 'Tertiaire, placeholder, captions'],
+  ].map(([name, hint]) => (
+    <div key={name} className="ds-tokens-swatch">
+      <div className="ds-tokens-swatch__sample" style={{
+        background: 'var(--ds-bg2)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 18,
+        color: `var(${name})`,
+      }}>
+        Aa
+      </div>
+      <div className="ds-tokens-swatch__meta">
+        <div className="ds-tokens-swatch__name">{name}</div>
+        <div className="ds-tokens-swatch__hint">{hint}</div>
+      </div>
+    </div>
+  ))}
+</div>
+
+---
+
+## Typographie
+
+Tous les tokens typographiques sont **invariants** : ils ne changent pas
+entre jour et nuit. Deux familles, plusieurs tailles et poids.
+
+### Familles
+
+<table className="ds-tokens-table">
+  <thead>
+    <tr><th>Token</th><th>Valeur</th><th>Usage</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--ds-font-sans</code></td>
+      <td><code>'Space Grotesk', sans-serif</code></td>
+      <td>Texte UI standard — titres, paragraphes, boutons</td>
+    </tr>
+    <tr>
+      <td><code>--ds-font-mono</code></td>
+      <td><code>'Space Mono', monospace</code></td>
+      <td>Code, libellés techniques, badges, données</td>
+    </tr>
+  </tbody>
+</table>
+
+### Tailles de police
+
+Échelle utilisée par tous les composants. Cible un usage clair (titre /
+corps / légende) plutôt qu'un échelon visuel.
+
+<table className="ds-tokens-table">
+  <thead>
+    <tr><th>Token</th><th>Valeur</th><th>Usage typique</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>--ds-fs-display</code></td><td>56 px</td><td>Hero, accroche principale</td></tr>
+    <tr><td><code>--ds-fs-display-sm</code></td><td>48 px</td><td>Hero compact</td></tr>
+    <tr><td><code>--ds-fs-title</code></td><td>26 px</td><td>Titre de section (h2)</td></tr>
+    <tr><td><code>--ds-fs-heading</code></td><td>20 px</td><td>Sous-titre (h3)</td></tr>
+    <tr><td><code>--ds-fs-subheading</code></td><td>17 px</td><td>Titre tertiaire (h4)</td></tr>
+    <tr><td><code>--ds-fs-body-lg</code></td><td>15 px</td><td>Paragraphe lead</td></tr>
+    <tr><td><code>--ds-fs-body</code></td><td>13 px</td><td>Paragraphe standard</td></tr>
+    <tr><td><code>--ds-fs-body-sm</code></td><td>12 px</td><td>Légende, texte secondaire</td></tr>
+    <tr><td><code>--ds-fs-caption</code></td><td>11 px</td><td>Caption, badge</td></tr>
+    <tr><td><code>--ds-fs-label</code></td><td>10 px</td><td>Tag, micro-label</td></tr>
+  </tbody>
+</table>
+
+### Poids
+
+<table className="ds-tokens-table">
+  <thead>
+    <tr><th>Token</th><th>Valeur</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>--ds-fw-bold</code></td><td>700</td></tr>
+    <tr><td><code>--ds-fw-semibold</code></td><td>600</td></tr>
+    <tr><td><code>--ds-fw-medium</code></td><td>500</td></tr>
+    <tr><td><code>--ds-fw-regular</code></td><td>400</td></tr>
+    <tr><td><code>--ds-fw-light</code></td><td>300</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Tokens spécifiques à un composant
+
+Quand un composant a une palette dédiée (status, accent particulier,
+animation), ses tokens portent son préfixe. Ils basculent **jour/nuit**
+comme les tokens génériques.
+
+<table className="ds-tokens-table">
+  <thead>
+    <tr><th>Composant</th><th>Préfixe</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>DsStatusBadge</td><td><code>{'--ds-status-{available|warning|unavailable}-{bg|border|color|dot}'}</code></td></tr>
+    <tr><td>DsBadge</td><td><code>{'--ds-badge-*, --ds-badge-primary-*, --ds-badge-accent-*'}</code></td></tr>
+    <tr><td>DsButton (secondary)</td><td><code>{'--ds-button-secondary-{border|color|hover-*}'}</code></td></tr>
+    <tr><td>DsThemeToggle</td><td><code>{'--ds-toggle-bg, --ds-toggle-active-bg, --ds-toggle-moon-color, --ds-toggle-sun-color'}</code></td></tr>
+    <tr><td>DsCodeBlock</td><td><code>{'--ds-code-{bg|color}, --ds-code-copy-*'}</code></td></tr>
+    <tr><td>DsActionCard</td><td><code>{'--ds-action-card-{bg|border|color|hover-*|icon-color}'}</code></td></tr>
+    <tr><td>DsTechCard</td><td><code>{'--ds-tech-card-{bg|border|hover-border}'}</code></td></tr>
+  </tbody>
+</table>
+
+> Pour la liste exhaustive des valeurs, voir
+> [`src/styles/_theme.scss`](https://github.com/codelyr/design-system/blob/main/src/styles/_theme.scss)
+> (mixins `day-tokens()` et `night-tokens()`).
+
+---
+
+## Tokens Material (interop M3)
+
+Le DS s'appuie sur **`mat.theme()`** d'Angular Material 21 pour la base.
+Les composants Material (`mat-dialog`, `mat-form-field`, `mat-button`…)
+consomment naturellement ces tokens — en touchant les `--ds-*` ou en
+posant `[data-theme]`, **les composants Material suivent**.
+
+<table className="ds-tokens-table">
+  <thead>
+    <tr><th>Token</th><th>Rôle</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>--mat-sys-primary</code></td><td>Couleur primaire (Material)</td></tr>
+    <tr><td><code>--mat-sys-on-primary</code></td><td>Texte sur primaire</td></tr>
+    <tr><td><code>--mat-sys-surface</code></td><td>Surface niveau 0</td></tr>
+    <tr><td><code>--mat-sys-surface-container</code></td><td>Surface niveau 2</td></tr>
+    <tr><td><code>--mat-sys-outline</code></td><td>Bordure standard</td></tr>
+    <tr><td><code>--mat-sys-outline-variant</code></td><td>Bordure secondaire</td></tr>
+  </tbody>
+</table>
+
+La liste complète vit dans les mixins **`day-tokens()`** et **`night-tokens()`**
+de `styles/_theme.scss`. Le mixin Material `mat.theme()` est ensuite appelé
+dans `theme()` pour propager ces valeurs aux composants Material standards.

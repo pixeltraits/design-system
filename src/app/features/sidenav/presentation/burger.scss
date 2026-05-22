@@ -1,0 +1,32 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ds-burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--ds-text);
+    border-radius: 2px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-primary);
+    outline-offset: 2px;
+  }
+}

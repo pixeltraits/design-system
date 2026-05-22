@@ -3,7 +3,7 @@
 
 html {
   height: 100%;
-  color-scheme: dark;
+  // `color-scheme` est piloté par le mixin theme() en fonction de [data-theme].
   @include theme.theme();
 }
 

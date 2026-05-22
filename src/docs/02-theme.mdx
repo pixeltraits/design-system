@@ -1,0 +1,120 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Theme & Day-Night" />
+
+# Thème jour / nuit
+
+Le DS expose deux palettes — `day` et `night` — qui commutent via
+l'attribut HTML `[data-theme]`. La commutation s'opère à trois échelles.
+Globalement sur `<html>` quand un toggle utilisateur pilote le mode du
+site. Localement sur n'importe quel élément du DOM pour overrider une
+zone. Sur le host d'un composant Angular quand celui-ci doit forcer sa
+propre palette indépendamment du contexte.
+
+## Principe
+
+```scss
+// styles/_theme.scss
+@mixin theme() {
+  @include mat.theme((...));         // tokens Material M3 partagés
+  --ds-font-sans, --ds-fs-*, ...     // tokens invariants (typo, échelles)
+  @include day-tokens();             // palette JOUR par défaut
+
+  &[data-theme='night'],
+  & [data-theme='night'] {
+    @include night-tokens();         // palette NUIT
+  }
+
+  & [data-theme='day'] {
+    @include day-tokens();           // rétablit le jour dans une zone nuit
+  }
+}
+```
+
+Un seul mixin appliqué une fois sur `html`. La cascade fait le travail.
+Les composants ne connaissent pas le mode courant — ils consomment des
+`var(--ds-*)` qui prennent la bonne valeur selon l'ancêtre `[data-theme]`
+le plus proche.
+
+## Pose au niveau global
+
+```html
+<html data-theme="night">          <!-- palette NUIT partout -->
+  ...
+</html>
+
+<html>                              <!-- palette JOUR (défaut) -->
+  ...
+</html>
+```
+
+## Override local
+
+Une zone précise peut forcer son propre mode, indépendamment du global.
+
+```html
+<html data-theme="day">             <!-- global JOUR -->
+  <body>
+    <main>...</main>                <!-- en JOUR -->
+    <aside data-theme="night">      <!-- cette zone passe en NUIT -->
+      <ds-card>...</ds-card>        <!-- les tokens DS s'adaptent -->
+    </aside>
+  </body>
+</html>
+```
+
+Cas typiques — sections « hero » sombres dans une page jour, modale qui
+garde son look propre indépendamment de la page derrière, composants
+brandés qui restent dans une palette fixe (`ds-theme-toggle` posé en
+`data-theme="night"` parce qu'il vit dans une navbar toujours sombre).
+
+## Par composant (host)
+
+Un composant Angular pose l'attribut sur son host quand sa palette doit
+être déterminée localement.
+
+```ts
+@Component({
+  selector: 'app-home-page',
+  host: { '[attr.data-theme]': "themeAttr()" },
+  ...
+})
+export class HomePage {
+  private readonly themeService = inject(BlogThemeService);
+  protected readonly themeAttr = computed<'night' | null>(() =>
+    this.themeService.theme() === 'normal' ? 'night' : null,
+  );
+}
+```
+
+## Bascule dans Storybook
+
+La toolbar « Thème » en haut de Storybook (icône paintbrush) pose
+`data-theme` sur `<html>` et bascule toutes les stories entre `night` et
+`day`. Chaque story s'adapte automatiquement.
+
+## Modes disponibles
+
+<table style={{ width: '100%', borderCollapse: 'collapse', margin: '16px 0' }}>
+  <thead>
+    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.18)' }}>
+      <th style={{ textAlign: 'left', padding: '10px 14px', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--ds-text-muted2)' }}>Mode</th>
+      <th style={{ textAlign: 'left', padding: '10px 14px', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--ds-text-muted2)' }}>Trigger</th>
+      <th style={{ textAlign: 'left', padding: '10px 14px', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--ds-text-muted2)' }}>Effet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.10)' }}>
+      <td style={{ padding: '10px 14px', fontFamily: 'var(--ds-font-mono)', fontSize: 12, color: 'var(--ds-primary-l)' }}>day</td>
+      <td style={{ padding: '10px 14px', color: 'var(--ds-text)' }}>Aucun attribut, ou <code>[data-theme="day"]</code></td>
+      <td style={{ padding: '10px 14px', color: 'var(--ds-text-muted)' }}>Palette claire, <code>color-scheme: light</code></td>
+    </tr>
+    <tr>
+      <td style={{ padding: '10px 14px', fontFamily: 'var(--ds-font-mono)', fontSize: 12, color: 'var(--ds-primary-l)' }}>night</td>
+      <td style={{ padding: '10px 14px', color: 'var(--ds-text)' }}><code>[data-theme="night"]</code> (host ou descendant)</td>
+      <td style={{ padding: '10px 14px', color: 'var(--ds-text-muted)' }}>Palette sombre, <code>color-scheme: dark</code></td>
+    </tr>
+  </tbody>
+</table>
+
+La palette détaillée vit dans **Docs › Design Tokens**.

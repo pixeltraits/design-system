@@ -1,7 +1,9 @@
+// Variants pilotés via tokens — palette jour/nuit auto via `[data-theme]`
+// (voir styles/_theme.scss).
 .ds-badge {
-  background: var(--ds-bg3);
-  border: 0.5px solid var(--ds-border);
-  color: var(--ds-text-muted);
+  background: var(--ds-badge-bg);
+  border: 0.5px solid var(--ds-badge-border);
+  color: var(--ds-badge-color);
   font-size: 11px;
   padding: 4px 10px;
   border-radius: 4px;
@@ -9,11 +11,13 @@
 }
 
 .ds-badge--primary {
-  border-color: rgba(107, 122, 255, 0.4);
-  color: var(--ds-primary-l);
+  background: var(--ds-badge-primary-bg);
+  border-color: var(--ds-badge-primary-border);
+  color: var(--ds-badge-primary-color);
 }
 
 .ds-badge--accent {
-  border-color: rgba(249, 115, 22, 0.35);
-  color: #fb923c;
+  background: var(--ds-badge-accent-bg);
+  border-color: var(--ds-badge-accent-border);
+  color: var(--ds-badge-accent-color);
 }

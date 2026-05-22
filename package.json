@@ -1,6 +1,6 @@
 {
   "name": "@pixeltraits/design-system",
-  "version": "0.0.8",
+  "version": "0.0.18",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -71,7 +71,6 @@
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@storybook/addon-a11y": "^10.2.8",
     "@storybook/addon-docs": "^10.2.8",
-    "@storybook/addon-onboarding": "^10.2.8",
     "@storybook/angular": "^10.2.8",
     "angular-eslint": "21.2.0",
     "eslint": "^9.39.2",

@@ -1,0 +1,10 @@
+<pre class="ds-code"><code>{{ code() }}</code></pre>
+<button
+  type="button"
+  class="ds-code-copy"
+  [class.is-copied]="copied()"
+  (click)="copy()"
+  [attr.aria-label]="copied() ? copiedLabel() : copyLabel()"
+>
+  {{ copied() ? copiedLabel() : copyLabel() }}
+</button>

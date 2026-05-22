@@ -84,10 +84,57 @@ public/                 # Static assets
 - Use `signal()`, `computed()`, and `effect()` for reactivity
 - Always set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
 
-## Accessibility Requirements
+## Accessibility — WCAG 2.1 AA (MANDATORY)
 
-- It MUST pass all AXE checks.
-- It MUST follow all WCAG AA minimums, including focus management, color contrast, and ARIA attributes.
+Every DS component MUST pass axe-core checks (validate via `@storybook/addon-a11y`).
+
+### Semantic HTML first
+- `<button>` for actions, `<a [href]>` for navigation. NEVER `<div role="button">` or `<span (click)>`.
+- Landmarks expected on pages that consume the DS: `<header>`, `<nav>`, `<main>`, `<footer>`. Components don't impose landmarks; they integrate cleanly inside them.
+- A single `<h1>` per page; no heading-level skip (h2 → h4 is forbidden).
+
+### Accessible names
+- Every interactive control has a name: visible text, `aria-label`, or `aria-labelledby`.
+- Icon-only buttons (`<button>` with just a `<ds-icon>`) MUST have `aria-label`.
+- Decorative icons (`<ds-icon>` next to a label) MUST have `aria-hidden="true"` on the icon element so AT doesn't read the icon name on top of the label.
+- Decorative SVGs: `aria-hidden="true"`. Informative SVGs: `role="img"` + inline `<title>` or `aria-label` on the parent.
+
+### Keyboard
+- Everything clickable is tabbable and activatable with `Enter` (buttons + links) and `Space` (buttons only) — use `<button>`/`<a>` to get this for free.
+- `:focus-visible` outline MUST be visible (`outline: 2px solid var(--ds-primary); outline-offset: 2px;` or the equivalent). NEVER `outline: none` without a replacement.
+- No keyboard trap. Overlay components (dialogs, popovers) MUST trap focus inside and restore it to the trigger on close.
+- Overlays close on `Escape`.
+
+### ARIA state attributes
+- Toggleable controls: `[attr.aria-pressed]` on toggles, `[attr.aria-expanded]` + `[attr.aria-controls]` on disclosure/menu triggers.
+- Current page/step in navigation: `[attr.aria-current]="'page'|'step'|true"`.
+- Live regions for async feedback: `aria-live="polite"` (default) or `assertive` only for errors.
+- Radio groups: wrapper has `role="radiogroup"` + `aria-label`; each option has `role="radio"` + `[attr.aria-checked]`.
+
+### Contrast and color
+- Text contrast ≥ 4.5:1 (normal) or ≥ 3:1 (≥ 18 px / ≥ 14 px bold).
+- UI components and graphical objects ≥ 3:1 against background.
+- NEVER convey meaning by color alone — combine with icon, text, or pattern. Status badges combine color + dot + label for that reason.
+
+### Motion
+- Every keyframe animation MUST be neutralized under `@media (prefers-reduced-motion: reduce)`.
+- No content that flashes > 3 times per second.
+- Default no auto-play; if unavoidable, expose a way to pause.
+
+### Touch targets
+- Interactive elements ≥ 44 × 44 px (recommended), absolute minimum 24 × 24 px (WCAG 2.5.8). Smaller targets MUST have ≥ 24 px clearance.
+
+### Dialogs (DsDialog)
+- `role="dialog"` + `aria-modal="true"` + `aria-labelledby="<title-id>"` (linked to the dialog title).
+- Initial focus on the first interactive element (or the close button if none).
+- Focus returned to the trigger on close.
+
+### Links
+- External links: `target="_blank"` MUST be accompanied by `rel="noopener noreferrer"`. Add a visible or `aria-label`-borne hint that the link opens in a new tab.
+
+### Testing
+- `npm run storybook` and check the **A11y** tab on each story — no violations allowed.
+- Smoke spec doesn't replace a11y testing — the addon does.
 
 ## Components
 

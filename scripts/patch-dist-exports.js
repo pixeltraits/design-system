@@ -10,6 +10,7 @@ const pkgPath = path.resolve(__dirname, '../dist/package.json');
 const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
 
 pkg.exports['./styles'] = { default: './styles/_index.scss' };
+pkg.exports['./styles/breakpoints'] = { default: './styles/_breakpoints.scss' };
 
 fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
-console.log('Patched dist/package.json: added ./styles export');
+console.log('Patched dist/package.json: added ./styles and ./styles/breakpoints exports');

@@ -1,0 +1,81 @@
+:host {
+  display: inline-flex;
+}
+
+.ds-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--ds-toggle-bg);
+  border: 1px solid var(--ds-border);
+  border-radius: 999px;
+}
+
+.seg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--ds-text-muted2);
+  cursor: pointer;
+  transition: color 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
+
+  &:hover {
+    color: var(--ds-text);
+  }
+
+  &.is-active {
+    color: var(--ds-text);
+    background: var(--ds-toggle-active-bg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-primary);
+    outline-offset: 2px;
+  }
+}
+
+// Icônes thématiques : la lune est colorée en violet (primary), le soleil en
+// orange (accent). On atténue l'opacité au repos pour ne pas dominer le segment
+// neutre `0`, et on rend la couleur pleine sur hover / actif.
+.seg--moon {
+  color: var(--ds-toggle-moon-color);
+  opacity: 0.6;
+
+  &:hover,
+  &.is-active {
+    color: var(--ds-toggle-moon-color);
+    opacity: 1;
+  }
+}
+
+.seg--sun {
+  color: var(--ds-toggle-sun-color);
+  opacity: 0.6;
+
+  &:hover,
+  &.is-active {
+    color: var(--ds-toggle-sun-color);
+    opacity: 1;
+  }
+}
+
+.zero {
+  font-family: var(--ds-font-mono);
+  font-size: 13px;
+  font-weight: var(--ds-fw-semibold);
+  line-height: 1;
+}
+
+@media (max-width: 780px) {
+  .seg {
+    width: 26px;
+    height: 26px;
+  }
+}

@@ -31,6 +31,8 @@ export { DsResponsiveTableActions } from './app/features/responsive-table/presen
 // Sidenav
 export { DsSidenavHeader } from './app/features/sidenav/presentation/sidenav-header';
 export { DsSidenavBody } from './app/features/sidenav/presentation/sidenav-body';
+export { DsBurger } from './app/features/sidenav/presentation/burger';
+export { DsDrawer } from './app/features/sidenav/presentation/drawer';
 
 // Skeleton Loader
 export { DsSkeletonLoader } from './app/features/skeleton-loader/presentation/skeleton-loader';
@@ -66,3 +68,17 @@ export { DsSectionHeader } from './app/features/section-header/presentation/sect
 // Status Badge
 export { DsStatusBadge } from './app/features/status-badge/presentation/status-badge';
 export type { DsStatusBadgeState } from './app/features/status-badge/presentation/status-badge';
+
+// Theme Toggle
+export { DsThemeToggle } from './app/features/theme-toggle/presentation/theme-toggle';
+export type { DsThemeToggleValue } from './app/features/theme-toggle/presentation/theme-toggle';
+
+// Code Block
+export { DsCodeBlock } from './app/features/code-block/presentation/code-block';
+
+// Action Card
+export { DsActionCard } from './app/features/action-card/presentation/action-card';
+export type { DsActionCardAnimation } from './app/features/action-card/presentation/action-card';
+
+// Tech Card
+export { DsTechCard } from './app/features/tech-card/presentation/tech-card';

@@ -1,0 +1,104 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as IconStories from '../app/features/icon/presentation/icon.stories';
+
+<Meta title="Docs/Icons" />
+
+# Icons
+
+Le DS expose un composant `<ds-icon>` qui rend une icône Font Awesome
+depuis un registre interne typé. Seuls les noms déclarés dans `DsIconName`
+sont acceptés — pas de chaîne arbitraire.
+
+## Usage
+
+```ts
+import { DsIcon } from '@pixeltraits/design-system';
+
+@Component({
+  selector: 'app-foo',
+  imports: [DsIcon],
+  template: `
+    <ds-icon icon="check" />              <!-- taille md par défaut -->
+    <ds-icon icon="moon" size="sm" />     <!-- 14 px -->
+    <ds-icon icon="sun" size="lg" />      <!-- 24 px -->
+  `,
+})
+export class Foo {}
+```
+
+## Tailles disponibles
+
+<table style={{ width: '100%', borderCollapse: 'collapse', margin: '16px 0', maxWidth: 360 }}>
+  <thead>
+    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.18)' }}>
+      <th style={{ textAlign: 'left', padding: '10px 14px', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--ds-text-muted2)' }}>Valeur de <code>size</code></th>
+      <th style={{ textAlign: 'left', padding: '10px 14px', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--ds-text-muted2)' }}>Pixels</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      ['xs', '10 px'],
+      ['sm', '14 px'],
+      ['md (défaut)', '18 px'],
+      ['lg', '24 px'],
+      ['xl', '32 px'],
+      ['xxl', '92 px'],
+    ].map(([size, px]) => (
+      <tr key={size} style={{ borderBottom: '1px solid rgba(255,255,255,0.10)' }}>
+        <td style={{ padding: '10px 14px', fontFamily: 'var(--ds-font-mono)', fontSize: 12, color: 'var(--ds-primary-l)' }}>{size}</td>
+        <td style={{ padding: '10px 14px', color: 'var(--ds-text)' }}>{px}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+## Couleur
+
+L'icône hérite de la `color` du parent. La teinte se pilote en posant
+`color: var(--ds-*)` sur l'élément qui englobe `<ds-icon>`. Pour un
+override ponctuel sur un picto animé (`DsActionCard`), la custom prop
+`--ds-action-card-icon-color` est exposée à l'host.
+
+## Accessibilité
+
+Une icône décorative — celle qui accompagne un libellé textuel — porte
+`aria-hidden="true"` sur son élément englobant, pour éviter que le
+lecteur d'écran lise le nom de l'icône en plus du texte. Le composant
+n'ajoute pas l'attribut automatiquement parce que la sémantique dépend
+du contexte d'usage.
+
+```html
+<span aria-hidden="true"><ds-icon icon="link" /></span> Lien externe
+```
+
+Une icône porteuse de sens — bouton icône-seule, par exemple — porte au
+contraire un `aria-label` sur l'élément interactif.
+
+```html
+<button type="button" aria-label="Fermer">
+  <ds-icon icon="xmark" />
+</button>
+```
+
+## Catalogue
+
+Grille de toutes les icônes du registre. Chaque cellule est cliquable et
+copie le nom `kebab-case` correspondant dans le presse-papier. La
+toolbar « Thème » bascule le rendu entre jour et nuit.
+
+<Canvas of={IconStories.Gallery} />
+
+## Ajouter une icône
+
+Le registre vit dans
+[`src/app/features/icon/presentation/icon-registry.ts`](?path=/story/components-icon--default).
+L'ajout d'une nouvelle icône suit trois étapes.
+
+1. Importer le glyphe depuis `@fortawesome/free-{solid,regular,brands}-svg-icons`.
+2. L'ajouter à l'objet `DS_ICONS` avec un nom kebab-case stable.
+3. Bumper le DS en minor — l'ajout étend l'API publique de `DsIconName`.
+
+Toutes les icônes du registre sont chargées dans le bundle final. La
+liste reste donc volontairement limitée aux pictos effectivement utilisés
+par les applications consommatrices, pour ne pas alourdir le poids
+téléchargé.
