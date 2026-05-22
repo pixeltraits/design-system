@@ -185,7 +185,7 @@ export const Gallery: Story = {
             transform: none;
           }
           .ds-icon-gallery-cell .ds-icon-gallery-label {
-            font-size: 11px;
+            font-size: 13px;
             text-align: center;
             word-break: break-all;
             color: var(--mat-sys-on-surface-variant);

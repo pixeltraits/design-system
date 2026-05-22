@@ -73,7 +73,7 @@ export const SavoirFairePattern: Story = {
       <div dsTechCard style="width: 340px; height: 412px;">
         <div style="display: flex; align-items: center; justify-content: space-between;">
           <span style="font-size: 13px; font-weight: 500; color: var(--ds-text);">Angular</span>
-          <span style="font-size: 10px; font-family: var(--ds-font-mono); color: var(--ds-text-muted2); text-transform: uppercase; letter-spacing: 1px;">FRONT-END</span>
+          <span style="font-size: 12px; font-family: var(--ds-font-mono); color: var(--ds-text-muted2); text-transform: uppercase; letter-spacing: 1px;">FRONT-END</span>
         </div>
         <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
           <div style="width: 120px; height: 120px; border-radius: 8px; background: linear-gradient(135deg, #ed1aa1 0%, #a824f2 100%);"></div>
