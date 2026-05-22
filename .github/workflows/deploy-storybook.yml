@@ -28,4 +28,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/pixeltraits/design-system:latest
+          tags: ghcr.io/codelyr/design-system:latest
