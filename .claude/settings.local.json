@@ -11,7 +11,14 @@
       "Bash(mkdir -p /home/erwan/capitalisation/design-system/src/app/features/icon-badge/presentation)",
       "Bash(mkdir -p /home/erwan/capitalisation/design-system/src/app/features/card/presentation)",
       "Bash(mkdir -p /home/erwan/capitalisation/design-system/src/app/features/avatar/presentation)",
-      "Bash(npx ng *)"
+      "Bash(npx ng *)",
+      "Bash(grep -oE '[a-zA-Z][a-zA-Z0-9_-]{0,40}' /home/erwan/capitalisation/design-system/node_modules/storybook/dist/_browser-chunks/syntaxhighlighter-ED5Y7EFY.js)",
+      "Bash(grep -oE '\\(label|ariaLabel|title|tooltip\\):\\\\s*\"[^\"]*[Cc]opy[^\"]*\"|\"[^\"]{1,80}\"' /home/erwan/capitalisation/design-system/node_modules/storybook/dist/_browser-chunks/syntaxhighlighter-ED5Y7EFY.js)",
+      "Bash(grep -roE '\\\\.docblock-argstable[^,{}]{0,100}|argstable[a-zA-Z-]*' /home/erwan/capitalisation/design-system/node_modules/@storybook/addon-docs/dist)",
+      "Bash(grep -oE 'argstable[^\"\\\\\\\\`]{0,300}' /home/erwan/capitalisation/design-system/node_modules/@storybook/addon-docs/dist/blocks.js)",
+      "Bash(awk 'NR>=4200 && NR<=4385' /home/erwan/capitalisation/design-system/node_modules/@storybook/addon-docs/dist/blocks.js)",
+      "Bash(npm install *)",
+      "Bash(npm publish *)"
     ]
   }
 }

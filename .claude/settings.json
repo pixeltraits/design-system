@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(egrep:*)",
+      "Bash(fgrep:*)",
+      "Bash(find:*)",
+      "Bash(rg:*)",
+      "Bash(jq:*)",
+      "Bash(awk:*)",
+      "Bash(sed:*)",
+      "Bash(xargs:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(ls:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(cut:*)",
+      "Bash(tr:*)",
+      "Bash(diff:*)",
+      "Bash(file:*)",
+      "Bash(tree:*)",
+      "Bash(npm view:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm config get:*)",
+      "Bash(ng version)",
+      "Bash(node --version)",
+      "Bash(npm --version)"
+    ]
+  }
+}

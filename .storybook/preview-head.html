@@ -3,11 +3,12 @@
      Le panneau docs (`@storybook/addon-docs`) lit ses couleurs depuis
      `parameters.docs.theme` qui est STATIQUE — l'addon `storybook-dark-mode`
      ne sait pas le basculer dynamiquement. On contourne en remappant les
-     classes `sbdocs-*` sur les tokens `--ds-*`, qui eux cascadent depuis
-     `<html data-theme>` (synchronisé avec le toggle dans `preview.ts`).
+     classes `sbdocs-*` / `docblock-*` / `docs-story` sur les tokens
+     `--ds-*`, qui eux cascadent depuis `<html data-theme>` (synchronisé
+     avec le toggle dans `preview.ts`).
 
-     Résultat : le panneau docs suit le toggle 🌙/☀️ sans dépendre des
-     styles Storybook par défaut.
+     Résultat : le panneau docs entier suit le toggle 🌙/☀️ sans dépendre
+     des styles Storybook par défaut.
      ─────────────────────────────────────────────────────────────────── */
 
   html,
@@ -16,14 +17,75 @@
     color: var(--ds-text) !important;
   }
 
-  /* Wrappers docs */
+  /* Tous les wrappers du panneau docs */
   .sbdocs,
   .sbdocs.sbdocs-wrapper,
   .sbdocs.sbdocs-content,
+  .sbdocs.sbdocs-preview,
+  .sbdocs-expandable,
   .docs-story,
-  .sbdocs-preview {
+  .docblock-source,
+  .docblock-argstable,
+  .docblock-argstable-head,
+  .docblock-argstable-body,
+  .docblock-colorpalette,
+  .docblock-emptyblock,
+  .docblock-icongallery,
+  .docblock-typeset,
+  .docblock-code-toggle,
+  [class*='css-'][class*='sbdocs'] {
     background: var(--ds-bg) !important;
     color: var(--ds-text) !important;
+    border-color: var(--ds-border) !important;
+  }
+
+  /* ── Tables du panneau docs (MDX + Args/Props auto-générées)
+     Règle universelle : toute cellule, ligne, hover ou striping
+     est forcé en transparent → laisse passer le bg du wrapper qui
+     suit déjà `--ds-bg`. Couvre `:hover`, `:nth-child(odd|even)`,
+     `[class*='css-']` (sélecteurs Emotion générés). */
+  .sbdocs.sbdocs-content table,
+  .sbdocs.sbdocs-content table tbody,
+  .sbdocs.sbdocs-content table thead,
+  .sbdocs.sbdocs-content table tr,
+  .sbdocs.sbdocs-content table tr:hover,
+  .sbdocs.sbdocs-content table tr:nth-child(odd),
+  .sbdocs.sbdocs-content table tr:nth-child(even),
+  .sbdocs.sbdocs-content table td,
+  .sbdocs.sbdocs-content table td:hover,
+  .sbdocs.sbdocs-content table th,
+  .docblock-argstable,
+  .docblock-argstable tbody,
+  .docblock-argstable thead,
+  .docblock-argstable tr,
+  .docblock-argstable tr:hover,
+  .docblock-argstable tr:nth-child(odd),
+  .docblock-argstable tr:nth-child(even),
+  .docblock-argstable td,
+  .docblock-argstable td:hover,
+  .docblock-argstable th,
+  .sb-unstyled table,
+  .sb-unstyled table tr,
+  .sb-unstyled table tr:hover,
+  .sb-unstyled table tr:nth-child(odd),
+  .sb-unstyled table td,
+  .sb-unstyled table th {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--ds-text) !important;
+    border-color: var(--ds-border) !important;
+  }
+  .docblock-argstable th,
+  .sb-unstyled table th,
+  .sbdocs.sbdocs-content table th {
+    color: var(--ds-text-muted) !important;
+  }
+
+  /* Wrappers story preview (Canvas) */
+  .sbdocs-preview,
+  .docs-story > div {
+    background: var(--ds-bg2) !important;
+    border-color: var(--ds-border) !important;
   }
 
   /* Headings + prose */
@@ -37,7 +99,9 @@
   .sbdocs.sbdocs-content li,
   .sbdocs.sbdocs-content blockquote,
   .sbdocs.sbdocs-content strong,
-  .sbdocs.sbdocs-content em {
+  .sbdocs.sbdocs-content em,
+  .sbdocs-title,
+  .sbdocs-subtitle {
     color: var(--ds-text) !important;
   }
 
@@ -54,11 +118,13 @@
     border-color: var(--ds-border) !important;
   }
 
-  /* Inline code + code blocks */
+  /* Inline code + code blocks (MDX et docblock-source) */
   .sbdocs.sbdocs-content code,
   .sbdocs.sbdocs-content pre,
   .sbdocs.sbdocs-content pre > div,
   .docblock-source,
+  .docblock-source pre,
+  .docblock-source code,
   .prismjs {
     background: var(--ds-bg3) !important;
     color: var(--ds-text) !important;
@@ -74,7 +140,8 @@
      (sinon des classes non énumérées — decorator, function, class-name,
      operator, number… — restent en noir codé en dur), puis on accentue
      quelques tokens choisis. */
-  .sbdocs.sbdocs-content .token {
+  .sbdocs.sbdocs-content .token,
+  .docblock-source .token {
     color: var(--ds-text) !important;
     background: transparent !important;
   }
@@ -82,7 +149,9 @@
   .sbdocs.sbdocs-content .token.prolog,
   .sbdocs.sbdocs-content .token.doctype,
   .sbdocs.sbdocs-content .token.cdata,
-  .sbdocs.sbdocs-content .token.punctuation {
+  .sbdocs.sbdocs-content .token.punctuation,
+  .docblock-source .token.comment,
+  .docblock-source .token.punctuation {
     color: var(--ds-text-muted) !important;
   }
   .sbdocs.sbdocs-content .token.keyword,
@@ -90,21 +159,30 @@
   .sbdocs.sbdocs-content .token.selector,
   .sbdocs.sbdocs-content .token.atrule,
   .sbdocs.sbdocs-content .token.decorator,
-  .sbdocs.sbdocs-content .token.builtin {
+  .sbdocs.sbdocs-content .token.builtin,
+  .docblock-source .token.keyword,
+  .docblock-source .token.tag,
+  .docblock-source .token.decorator {
     color: var(--ds-primary) !important;
   }
   .sbdocs.sbdocs-content .token.string,
   .sbdocs.sbdocs-content .token.attr-value,
   .sbdocs.sbdocs-content .token.regex,
-  .sbdocs.sbdocs-content .token.char {
+  .sbdocs.sbdocs-content .token.char,
+  .docblock-source .token.string,
+  .docblock-source .token.attr-value {
     color: var(--ds-accent) !important;
   }
   .sbdocs.sbdocs-content .token.function,
-  .sbdocs.sbdocs-content .token.class-name {
+  .sbdocs.sbdocs-content .token.class-name,
+  .docblock-source .token.function,
+  .docblock-source .token.class-name {
     color: var(--ds-primary-l) !important;
   }
   .sbdocs.sbdocs-content .token.number,
-  .sbdocs.sbdocs-content .token.boolean {
+  .sbdocs.sbdocs-content .token.boolean,
+  .docblock-source .token.number,
+  .docblock-source .token.boolean {
     color: var(--ds-accent) !important;
   }
 
@@ -118,5 +196,100 @@
   .docblock-argstable-head,
   .docblock-argstable-body tr {
     border-color: var(--ds-border) !important;
+  }
+
+  /* Toggle "Show code" sous les Canvas */
+  .docblock-code-toggle {
+    background: var(--ds-bg2) !important;
+    color: var(--ds-text-muted) !important;
+    border-color: var(--ds-border) !important;
+  }
+  .docblock-code-toggle:hover {
+    color: var(--ds-text) !important;
+  }
+
+  /* Bouton "Copy" / "Copied" du SyntaxHighlighter Storybook (classes
+     Emotion dynamiques, on cible par aria-label + descendants des
+     blocs de code MDX et `docblock-source`). */
+  .sbdocs.sbdocs-content pre button,
+  .docblock-source button,
+  button[aria-label='Copy'],
+  button[aria-label='Copied'] {
+    background: var(--ds-bg2) !important;
+    color: var(--ds-text-muted) !important;
+    border: 1px solid var(--ds-border) !important;
+  }
+  .sbdocs.sbdocs-content pre button:hover,
+  .docblock-source button:hover,
+  button[aria-label='Copy']:hover,
+  button[aria-label='Copied']:hover {
+    background: var(--ds-bg3) !important;
+    color: var(--ds-text) !important;
+    border-color: var(--ds-border2) !important;
+  }
+  .sbdocs.sbdocs-content pre button svg,
+  .docblock-source button svg,
+  button[aria-label='Copy'] svg,
+  button[aria-label='Copied'] svg {
+    color: currentColor !important;
+    fill: currentColor !important;
+  }
+
+  /* ── Toolbar des story previews (zoom +/-, "Show code", grille…)
+     Structure DOM rendue par `PreviewContainer` :
+       <div class="sbdocs sbdocs-preview">
+         <PositionedToolbar>   ← classe Emotion `css-xxxx` (pas de label en prod)
+         <div class="docs-story">
+       </div>
+     On cible structurellement : tout enfant direct de `.sbdocs-preview`
+     qui n'est PAS `.docs-story` est la toolbar. */
+  .sbdocs-preview > :not(.docs-story) {
+    background: var(--ds-bg2) !important;
+    color: var(--ds-text) !important;
+    border-color: var(--ds-border) !important;
+  }
+  .sbdocs-preview > :not(.docs-story) * {
+    color: var(--ds-text) !important;
+    background-color: transparent !important;
+  }
+  .sbdocs-preview > :not(.docs-story) svg {
+    color: currentColor !important;
+    fill: currentColor !important;
+  }
+  .sbdocs-preview button,
+  .sbdocs-preview button:hover,
+  .sbdocs-preview a,
+  .docblock-argstable button,
+  .docblock-argstable select,
+  .docblock-argstable input,
+  .docblock-argstable textarea,
+  .sb-unstyled button,
+  .sb-unstyled select,
+  .sb-unstyled input {
+    background: var(--ds-bg2) !important;
+    color: var(--ds-text) !important;
+    border: 1px solid var(--ds-border) !important;
+  }
+  .sbdocs-preview button:hover,
+  .docblock-argstable button:hover,
+  .docblock-argstable select:hover {
+    background: var(--ds-bg3) !important;
+    color: var(--ds-text) !important;
+    border-color: var(--ds-border2) !important;
+  }
+  .sbdocs-preview svg,
+  .sbdocs-preview button svg,
+  .docblock-argstable svg {
+    color: currentColor !important;
+    fill: currentColor !important;
+  }
+
+  /* ── Filet de sécurité : tout texte des tables de docs hérite de
+     `--ds-text`. La spécificité (0,2,1) reste inférieure à nos rules
+     `.token.<x>` (0,3,0) donc la coloration syntaxique tient. */
+  .sbdocs.sbdocs-content table *,
+  .docblock-argstable *,
+  .sb-unstyled table * {
+    color: var(--ds-text) !important;
   }
 </style>
