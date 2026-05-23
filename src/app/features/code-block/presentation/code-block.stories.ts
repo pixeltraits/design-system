@@ -49,7 +49,7 @@ type Story = StoryObj<DsCodeBlock>;
 /** Snippet bash typique — survol pour voir le bouton copier apparaître. */
 export const Bash: Story = {
   args: {
-    code: '$ npm install @pixeltraits/design-system\n$ ng add @angular/material',
+    code: '$ npm install @codelyr/design-system\n$ ng add @angular/material',
     copyLabel: 'Copier',
     copiedLabel: 'Copié',
   },

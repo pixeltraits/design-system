@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   storybook:
-    image: ghcr.io/pixeltraits/design-system:latest
+    image: ghcr.io/codelyr/design-system:latest
     ports:
       - target: 80
         published: 8085

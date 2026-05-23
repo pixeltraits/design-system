@@ -119,7 +119,7 @@
         }
       }
     },
-    "@pixeltraits/design-system": {
+    "@codelyr/design-system": {
       "projectType": "library",
       "root": "",
       "sourceRoot": "src",

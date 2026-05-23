@@ -1,11 +1,11 @@
 {
   "name": "@codelyr/design-system",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:lib": "ng build @pixeltraits/design-system",
+    "build:lib": "ng build @codelyr/design-system",
     "postbuild:lib": "node scripts/patch-dist-exports.js",
     "publish:lib": "npm run build:lib && cd dist && npm publish --access public",
     "watch": "ng build --watch --configuration development",
@@ -81,6 +81,7 @@
     "prettier": "^3.8.1",
     "rxjs": "~7.8.0",
     "storybook": "^10.2.8",
+    "storybook-dark-mode": "^5.0.0",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.50.1",

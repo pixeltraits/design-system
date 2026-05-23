@@ -22,7 +22,7 @@ import { DsTechCard } from './tech-card';
  *
  * ```ts
  * import { Component } from '@angular/core';
- * import { DsTechCard } from '@pixeltraits/design-system';
+ * import { DsTechCard } from '@codelyr/design-system';
  *
  * @Component({
  *   selector: 'app-card-angular',

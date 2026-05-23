@@ -4,7 +4,7 @@ import { create } from 'storybook/theming';
 addons.setConfig({
   theme: create({
     base: 'dark',
-    brandTitle: 'Pixeltraits DS',
+    brandTitle: 'Codelyr DS',
     fontBase: '"Space Grotesk", sans-serif',
     fontCode: '"Space Mono", monospace',
     colorPrimary: '#6b7aff',

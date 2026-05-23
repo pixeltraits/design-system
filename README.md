@@ -1,11 +1,11 @@
-# @pixeltraits/design-system
+# @codelyr/design-system
 
 Angular 21 design system built on Angular Material (M3). Standalone, zoneless, signals-based.
 
 ## Installation
 
 ```bash
-npm install @pixeltraits/design-system
+npm install @codelyr/design-system
 ```
 
 ### Peer dependencies
@@ -23,7 +23,7 @@ npm install @angular/animations @angular/cdk @angular/common @angular/core \
 ### 1. Apply the theme in your global `styles.scss`
 
 ```scss
-@use '@pixeltraits/design-system/styles' as ds;
+@use '@codelyr/design-system/styles' as ds;
 
 html {
   @include ds.theme();
@@ -72,7 +72,7 @@ All components use the `ds` selector prefix and are tree-shakeable standalone co
 ### Button
 
 ```typescript
-import { DsButton } from '@pixeltraits/design-system';
+import { DsButton } from '@codelyr/design-system';
 
 @Component({
   imports: [DsButton],
@@ -88,7 +88,7 @@ export class MyComponent {}
 ### Icon
 
 ```typescript
-import { DsIcon } from '@pixeltraits/design-system';
+import { DsIcon } from '@codelyr/design-system';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -103,7 +103,7 @@ export class MyComponent {
 ### Dialog
 
 ```typescript
-import { DsDialog, DsDialogComponent, DsDialogTitle, DsDialogContent, DsDialogActions, DsDialogClose } from '@pixeltraits/design-system';
+import { DsDialog, DsDialogComponent, DsDialogTitle, DsDialogContent, DsDialogActions, DsDialogClose } from '@codelyr/design-system';
 
 // In your dialog content component:
 @Component({

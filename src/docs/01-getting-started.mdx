@@ -21,7 +21,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
   les versions épinglées et en relisant le changelog avant chaque montée.
 </div>
 
-`@pixeltraits/design-system` est un design system Angular 21 standalone,
+`@codelyr/design-system` est un design system Angular 21 standalone,
 basé sur Angular Material M3. Le package se consomme via npm comme une
 dépendance classique.
 
@@ -56,7 +56,7 @@ fournies par l'application consommatrice.
 ## Installation
 
 ```bash
-npm install @pixeltraits/design-system \
+npm install @codelyr/design-system \
   @angular/material @angular/cdk \
   @fortawesome/angular-fontawesome \
   @fortawesome/fontawesome-svg-core \
@@ -74,7 +74,7 @@ fois.
 
 ```scss
 // src/styles.scss
-@use '@pixeltraits/design-system/styles' as ds;
+@use '@codelyr/design-system/styles' as ds;
 
 html {
   @include ds.theme();
@@ -95,7 +95,7 @@ Les composants du DS sont standalone et s'importent directement dans le
 
 ```ts
 import { Component } from '@angular/core';
-import { DsButton, DsIcon } from '@pixeltraits/design-system';
+import { DsButton, DsIcon } from '@codelyr/design-system';
 
 @Component({
   selector: 'app-root',

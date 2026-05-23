@@ -40,7 +40,7 @@ const TOGGLE_BTN = `
           <a class="ds-sidenav-nav-link" href="#">Profil</a>
           <a class="ds-sidenav-nav-link" href="#">Paramètres</a>
         </nav>
-        <div class="ds-sidenav-footer">v1.0.0 · Pixeltraits DS</div>
+        <div class="ds-sidenav-footer">v1.0.0 · Codelyr DS</div>
       </mat-sidenav>
 
       <mat-sidenav-content [style]="contentStyles">
@@ -85,7 +85,7 @@ class DefaultSidenavStory {
           <a class="ds-sidenav-nav-link" href="#">Navigation</a>
           <a class="ds-sidenav-nav-link" href="#">Dialogs</a>
         </nav>
-        <div class="ds-sidenav-footer">@pixeltraits/design-system</div>
+        <div class="ds-sidenav-footer">@codelyr/design-system</div>
       </mat-sidenav>
 
       <mat-sidenav-content [style]="contentStyles">

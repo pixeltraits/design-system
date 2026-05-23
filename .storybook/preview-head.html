@@ -1,0 +1,122 @@
+<style>
+  /* ───────────────────────────────────────────────────────────────────────
+     Le panneau docs (`@storybook/addon-docs`) lit ses couleurs depuis
+     `parameters.docs.theme` qui est STATIQUE — l'addon `storybook-dark-mode`
+     ne sait pas le basculer dynamiquement. On contourne en remappant les
+     classes `sbdocs-*` sur les tokens `--ds-*`, qui eux cascadent depuis
+     `<html data-theme>` (synchronisé avec le toggle dans `preview.ts`).
+
+     Résultat : le panneau docs suit le toggle 🌙/☀️ sans dépendre des
+     styles Storybook par défaut.
+     ─────────────────────────────────────────────────────────────────── */
+
+  html,
+  body {
+    background: var(--ds-bg) !important;
+    color: var(--ds-text) !important;
+  }
+
+  /* Wrappers docs */
+  .sbdocs,
+  .sbdocs.sbdocs-wrapper,
+  .sbdocs.sbdocs-content,
+  .docs-story,
+  .sbdocs-preview {
+    background: var(--ds-bg) !important;
+    color: var(--ds-text) !important;
+  }
+
+  /* Headings + prose */
+  .sbdocs.sbdocs-content h1,
+  .sbdocs.sbdocs-content h2,
+  .sbdocs.sbdocs-content h3,
+  .sbdocs.sbdocs-content h4,
+  .sbdocs.sbdocs-content h5,
+  .sbdocs.sbdocs-content h6,
+  .sbdocs.sbdocs-content p,
+  .sbdocs.sbdocs-content li,
+  .sbdocs.sbdocs-content blockquote,
+  .sbdocs.sbdocs-content strong,
+  .sbdocs.sbdocs-content em {
+    color: var(--ds-text) !important;
+  }
+
+  /* Tables MDX */
+  .sbdocs.sbdocs-content table tbody tr {
+    background: transparent !important;
+  }
+  .sbdocs.sbdocs-content table th {
+    color: var(--ds-text-muted) !important;
+    border-color: var(--ds-border) !important;
+  }
+  .sbdocs.sbdocs-content table td {
+    color: var(--ds-text) !important;
+    border-color: var(--ds-border) !important;
+  }
+
+  /* Inline code + code blocks */
+  .sbdocs.sbdocs-content code,
+  .sbdocs.sbdocs-content pre,
+  .sbdocs.sbdocs-content pre > div,
+  .docblock-source,
+  .prismjs {
+    background: var(--ds-bg3) !important;
+    color: var(--ds-text) !important;
+    border-color: var(--ds-border) !important;
+  }
+  .sbdocs.sbdocs-content code {
+    border: 1px solid var(--ds-border) !important;
+    border-radius: 3px;
+    padding: 1px 6px;
+  }
+
+  /* Coloration syntaxique Prism : couleur de base sur TOUS les tokens
+     (sinon des classes non énumérées — decorator, function, class-name,
+     operator, number… — restent en noir codé en dur), puis on accentue
+     quelques tokens choisis. */
+  .sbdocs.sbdocs-content .token {
+    color: var(--ds-text) !important;
+    background: transparent !important;
+  }
+  .sbdocs.sbdocs-content .token.comment,
+  .sbdocs.sbdocs-content .token.prolog,
+  .sbdocs.sbdocs-content .token.doctype,
+  .sbdocs.sbdocs-content .token.cdata,
+  .sbdocs.sbdocs-content .token.punctuation {
+    color: var(--ds-text-muted) !important;
+  }
+  .sbdocs.sbdocs-content .token.keyword,
+  .sbdocs.sbdocs-content .token.tag,
+  .sbdocs.sbdocs-content .token.selector,
+  .sbdocs.sbdocs-content .token.atrule,
+  .sbdocs.sbdocs-content .token.decorator,
+  .sbdocs.sbdocs-content .token.builtin {
+    color: var(--ds-primary) !important;
+  }
+  .sbdocs.sbdocs-content .token.string,
+  .sbdocs.sbdocs-content .token.attr-value,
+  .sbdocs.sbdocs-content .token.regex,
+  .sbdocs.sbdocs-content .token.char {
+    color: var(--ds-accent) !important;
+  }
+  .sbdocs.sbdocs-content .token.function,
+  .sbdocs.sbdocs-content .token.class-name {
+    color: var(--ds-primary-l) !important;
+  }
+  .sbdocs.sbdocs-content .token.number,
+  .sbdocs.sbdocs-content .token.boolean {
+    color: var(--ds-accent) !important;
+  }
+
+  /* Liens */
+  .sbdocs.sbdocs-content a {
+    color: var(--ds-primary) !important;
+  }
+
+  /* Bordures internes (HR, separators d'arg-tables) */
+  .sbdocs.sbdocs-content hr,
+  .docblock-argstable-head,
+  .docblock-argstable-body tr {
+    border-color: var(--ds-border) !important;
+  }
+</style>
